@@ -3,7 +3,7 @@
 ## Layout
 
 ```
-evidencebench/
+auditbench/
   docker/base.Dockerfile        shared image: python3.12-slim + node + uv + the mcp client library
   tools/mcp_probe.py            spawn any declared MCP server and list or call its tools directly
   tools/grade.py                score a submitted answer against a scenario's claims

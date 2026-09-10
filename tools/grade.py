@@ -8,9 +8,9 @@ Run with --dry-run to validate a claims file and an answer without calling any m
 useful in CI, or for anyone trying the repo without configuring an API key.
 
 Environment:
-    EVIDENCEBENCH_API_BASE   OpenAI-compatible chat completions base URL
-    EVIDENCEBENCH_API_KEY    API key for that endpoint
-    EVIDENCEBENCH_MODEL      model name to use as judge (default: gpt-4o-mini)
+    AUDITBENCH_API_BASE   OpenAI-compatible chat completions base URL
+    AUDITBENCH_API_KEY    API key for that endpoint
+    AUDITBENCH_MODEL      model name to use as judge (default: gpt-4o-mini)
 """
 import argparse
 import os
@@ -72,7 +72,7 @@ def main() -> int:
     parser.add_argument("--claims", required=True, help="path to a claims.yaml file")
     parser.add_argument("--answer", required=True, help="path to the candidate's answer text")
     parser.add_argument("--dry-run", action="store_true", help="validate only, no judge call")
-    parser.add_argument("--model", default=os.environ.get("EVIDENCEBENCH_MODEL", "gpt-4o-mini"))
+    parser.add_argument("--model", default=os.environ.get("AUDITBENCH_MODEL", "gpt-4o-mini"))
     args = parser.parse_args()
 
     claims = load_claims(args.claims)
@@ -88,10 +88,10 @@ def main() -> int:
             print(f"  [{c.points} pts] {c.id}: {c.description}")
         return 0
 
-    api_base = os.environ.get("EVIDENCEBENCH_API_BASE")
-    api_key = os.environ.get("EVIDENCEBENCH_API_KEY")
+    api_base = os.environ.get("AUDITBENCH_API_BASE")
+    api_key = os.environ.get("AUDITBENCH_API_KEY")
     if not api_base or not api_key:
-        print("error: set EVIDENCEBENCH_API_BASE and EVIDENCEBENCH_API_KEY, or pass --dry-run", file=sys.stderr)
+        print("error: set AUDITBENCH_API_BASE and AUDITBENCH_API_KEY, or pass --dry-run", file=sys.stderr)
         return 1
 
     total_points = sum(c.points for c in claims)
