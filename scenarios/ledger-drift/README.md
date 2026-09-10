@@ -26,4 +26,4 @@ Point any MCP-capable agent at `mcp-servers.json` and give it `brief.md` as the 
 python ../../../tools/grade.py --claims evaluation/claims.yaml --answer /path/to/answer.txt --dry-run
 ```
 
-Drop `--dry-run` and set `AUDITBENCH_API_BASE` / `AUDITBENCH_API_KEY` to score for real against a judge model.
+Drop `--dry-run` and set `MSMB_API_BASE` / `MSMB_API_KEY` to score for real against a judge model.

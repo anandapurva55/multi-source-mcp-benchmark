@@ -1,4 +1,4 @@
-# AuditBench
+# multi-source-mcp-benchmark
 
 A reproducible benchmark for evaluating AI agents on multi-source evidence investigation, not on retrieving a single fact, but on reconciling several disagreeing sources, ruling out a plausible wrong explanation, and producing a conclusion backed by specific evidence.
 
@@ -31,7 +31,7 @@ python ../../../tools/mcp_probe.py list-tools --config ../mcp-servers.json --ser
 python ../../../tools/grade.py --claims ../evaluation/claims.yaml --answer /path/to/answer.txt --dry-run
 ```
 
-Point any MCP-capable agent at a scenario's `mcp-servers.json` and hand it `brief.md`. Grade its answer for real by dropping `--dry-run` and setting `AUDITBENCH_API_BASE` / `AUDITBENCH_API_KEY` / `AUDITBENCH_MODEL`.
+Point any MCP-capable agent at a scenario's `mcp-servers.json` and hand it `brief.md`. Grade its answer for real by dropping `--dry-run` and setting `MSMB_API_BASE` / `MSMB_API_KEY` / `MSMB_MODEL`.
 
 ## Running the test suite
 
