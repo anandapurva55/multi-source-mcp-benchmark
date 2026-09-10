@@ -1,0 +1,3 @@
+We had an incident on notify-relay yesterday during the Meridian Retail onboarding wave, and Jordan got it stabilized, but nobody's written up what actually happened or what we should do differently before the next big onboarding wave. I need that before I can sign off.
+
+Walk me through what actually happened, in order, and what the evidence does and doesn't support as the cause. A couple of people are already assuming the affected customers' own endpoints must have been down. Then give me a written recommendation for how to handle the next large onboarding wave without hitting this again. Any recommendation needs to respect our customer delivery SLA. I'm not asking for a live change tonight, just the plan.

@@ -1,0 +1,53 @@
+claims:
+  - id: root_cause
+    description: >
+      Identifies the root cause as the 13:05 UTC CB-771 config-sync change, which lowered
+      the circuit breaker's failure threshold from 50% to 15% and widened its grouping
+      from per-endpoint to per-region, causing a small number of slow endpoints to trip
+      the breaker for the whole ap-south region.
+    points: 3
+
+  - id: rules_out_customer_outage
+    description: >
+      Explicitly rules out the theory that customer endpoints were down, citing both
+      support_queue_note.md (no customer-reported outages) and the roughly 6 to 1 ratio
+      of circuit_open to customer_timeout errors in the logs.
+    points: 3
+
+  - id: rules_out_deploy
+    description: >
+      Explicitly rules out the 12:45 UTC v3.9.0 deploy as the cause, citing that its
+      changes (log format, a new metric) do not touch breaker or connection logic and its
+      rollout was healthy.
+    points: 3
+
+  - id: restart_and_scale_partial
+    description: >
+      Explains that the 13:20 UTC worker restart only produced brief relief (about five
+      minutes) before the breaker retripped around 13:26 UTC, and that scaling workers at
+      13:32 UTC only partially improved the error rate rather than fully resolving it,
+      because neither action changed the breaker's threshold or grouping.
+    points: 3
+
+  - id: overcorrection_second_mode
+    description: >
+      Identifies that the 13:55 UTC fix (CB-772) reverted grouping to per-endpoint but
+      overshot the threshold to 90%, causing a distinct second failure mode, a spike in
+      customer_timeout errors from genuinely slow endpoints going unprotected, until the
+      13:57 UTC correction (CB-773) restored a 50% threshold.
+    points: 3
+
+  - id: sla_violation
+    description: >
+      States that widening the breaker's grouping above per-endpoint scope violated the
+      customer delivery SLA on its own, independent of the outage it caused, since the SLA
+      requires per-endpoint scope and five business days of notice for any change to that.
+    points: 3
+
+  - id: recommendation
+    description: >
+      Gives a written recommendation (not a claim of having made a live change) that
+      prevents recurrence: keeping breaker grouping at per-endpoint scope, requiring
+      documented justification for threshold changes below 30%, and pre-scaling workers
+      ahead of a known onboarding wave rather than reacting mid-incident.
+    points: 3

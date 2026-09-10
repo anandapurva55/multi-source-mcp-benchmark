@@ -1,0 +1,314 @@
+2027-04-12T12:45:00Z INFO  notify-relay summary window=1m deliveries=623 circuit_open=2 customer_timeout=4 p95_latency_ms=219
+2027-04-12T12:45:00Z INFO  notify-relay deploy completed version=v3.9.0 rollout=canary->full healthy=true
+2027-04-12T12:45:02Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:45:31Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:46:00Z INFO  notify-relay summary window=1m deliveries=641 circuit_open=0 customer_timeout=1 p95_latency_ms=180
+2027-04-12T12:46:59Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:47:00Z INFO  notify-relay summary window=1m deliveries=571 circuit_open=0 customer_timeout=1 p95_latency_ms=153
+2027-04-12T12:47:17Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:48:00Z INFO  notify-relay summary window=1m deliveries=624 circuit_open=0 customer_timeout=5 p95_latency_ms=167
+2027-04-12T12:48:00Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:48:12Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:49:00Z INFO  notify-relay summary window=1m deliveries=605 circuit_open=6 customer_timeout=5 p95_latency_ms=280
+2027-04-12T12:49:22Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:50:00Z INFO  notify-relay summary window=1m deliveries=656 circuit_open=0 customer_timeout=6 p95_latency_ms=178
+2027-04-12T12:50:12Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:50:22Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:51:00Z INFO  notify-relay summary window=1m deliveries=645 circuit_open=0 customer_timeout=2 p95_latency_ms=171
+2027-04-12T12:51:01Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:51:49Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:51:56Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:52:00Z INFO  notify-relay summary window=1m deliveries=660 circuit_open=0 customer_timeout=6 p95_latency_ms=191
+2027-04-12T12:52:13Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:53:00Z INFO  notify-relay summary window=1m deliveries=577 circuit_open=3 customer_timeout=0 p95_latency_ms=119
+2027-04-12T12:54:00Z INFO  notify-relay summary window=1m deliveries=626 circuit_open=3 customer_timeout=4 p95_latency_ms=203
+2027-04-12T12:55:00Z INFO  notify-relay summary window=1m deliveries=650 circuit_open=0 customer_timeout=8 p95_latency_ms=205
+2027-04-12T12:55:07Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:55:31Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:55:44Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:56:00Z INFO  notify-relay summary window=1m deliveries=635 circuit_open=0 customer_timeout=5 p95_latency_ms=195
+2027-04-12T12:56:17Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:56:20Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:57:00Z INFO  notify-relay summary window=1m deliveries=645 circuit_open=0 customer_timeout=2 p95_latency_ms=168
+2027-04-12T12:58:00Z INFO  notify-relay summary window=1m deliveries=638 circuit_open=1 customer_timeout=2 p95_latency_ms=197
+2027-04-12T12:58:17Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:59:00Z INFO  notify-relay summary window=1m deliveries=656 circuit_open=11 customer_timeout=5 p95_latency_ms=289
+2027-04-12T12:59:13Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T12:59:56Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:00:00Z INFO  notify-relay summary window=1m deliveries=638 circuit_open=6 customer_timeout=3 p95_latency_ms=204
+2027-04-12T13:01:00Z INFO  notify-relay summary window=1m deliveries=789 circuit_open=0 customer_timeout=7 p95_latency_ms=238
+2027-04-12T13:01:04Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:01:47Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:02:00Z INFO  notify-relay summary window=1m deliveries=943 circuit_open=0 customer_timeout=2 p95_latency_ms=136
+2027-04-12T13:02:27Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:02:32Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:02:44Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:03:00Z INFO  notify-relay summary window=1m deliveries=1169 circuit_open=4 customer_timeout=7 p95_latency_ms=210
+2027-04-12T13:03:25Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:03:37Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:04:00Z INFO  notify-relay summary window=1m deliveries=1340 circuit_open=7 customer_timeout=0 p95_latency_ms=154
+2027-04-12T13:04:21Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:04:40Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:04:44Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:05:00Z INFO  notify-relay summary window=1m deliveries=1517 circuit_open=0 customer_timeout=14 p95_latency_ms=232
+2027-04-12T13:05:00Z INFO  config-sync applied commit=CB-771 file=relay-config/circuit_breaker.yaml change="failure_threshold_pct: 50 -> 15, group_scope: endpoint -> region"
+2027-04-12T13:05:27Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:06:00Z INFO  notify-relay summary window=1m deliveries=1504 circuit_open=5 customer_timeout=29 p95_latency_ms=314
+2027-04-12T13:07:00Z INFO  notify-relay summary window=1m deliveries=1520 circuit_open=3 customer_timeout=24 p95_latency_ms=278
+2027-04-12T13:08:00Z INFO  notify-relay summary window=1m deliveries=1474 circuit_open=9 customer_timeout=28 p95_latency_ms=300
+2027-04-12T13:09:00Z INFO  notify-relay summary window=1m deliveries=1549 circuit_open=503 customer_timeout=30 p95_latency_ms=2173
+2027-04-12T13:09:06Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:09:11Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:09:13Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:09:27Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:09:42Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:09:52Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:10:00Z INFO  notify-relay summary window=1m deliveries=1475 circuit_open=506 customer_timeout=26 p95_latency_ms=2267
+2027-04-12T13:10:06Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:10:11Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:10:19Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:10:24Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:10:26Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:10:48Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:11:00Z INFO  notify-relay summary window=1m deliveries=1477 circuit_open=530 customer_timeout=29 p95_latency_ms=2390
+2027-04-12T13:11:02Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:11:10Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:11:16Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:11:33Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:11:38Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:11:46Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:12:00Z INFO  notify-relay summary window=1m deliveries=1516 circuit_open=494 customer_timeout=30 p95_latency_ms=2241
+2027-04-12T13:12:08Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:12:13Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:12:16Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:12:19Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:12:30Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:12:38Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:13:00Z INFO  notify-relay summary window=1m deliveries=1500 circuit_open=504 customer_timeout=19 p95_latency_ms=2262
+2027-04-12T13:13:08Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:13:09Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:13:14Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:13:21Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:13:29Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:13:40Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:14:00Z INFO  notify-relay summary window=1m deliveries=1498 circuit_open=527 customer_timeout=38 p95_latency_ms=2367
+2027-04-12T13:14:04Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:14:21Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:14:35Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:14:36Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:14:38Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:14:50Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:15:00Z INFO  notify-relay summary window=1m deliveries=1508 circuit_open=495 customer_timeout=33 p95_latency_ms=2230
+2027-04-12T13:15:00Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:15:05Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:15:05Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:15:12Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:15:29Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:15:37Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:15:49Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:16:00Z INFO  notify-relay summary window=1m deliveries=1522 circuit_open=507 customer_timeout=27 p95_latency_ms=2210
+2027-04-12T13:16:09Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:16:12Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:16:16Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:16:19Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:16:43Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:16:52Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:17:00Z INFO  notify-relay summary window=1m deliveries=1490 circuit_open=529 customer_timeout=19 p95_latency_ms=2292
+2027-04-12T13:17:01Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:17:05Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:17:07Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:17:19Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:17:21Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:18:00Z INFO  notify-relay summary window=1m deliveries=1483 circuit_open=490 customer_timeout=23 p95_latency_ms=2259
+2027-04-12T13:18:16Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:18:22Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:18:28Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:18:34Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:19:00Z INFO  notify-relay summary window=1m deliveries=1474 circuit_open=519 customer_timeout=26 p95_latency_ms=2284
+2027-04-12T13:19:08Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:19:43Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:19:44Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:19:44Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:19:51Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:19:54Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:20:00Z INFO  notify-relay summary window=1m deliveries=1515 circuit_open=66 customer_timeout=26 p95_latency_ms=543
+2027-04-12T13:20:00Z INFO  notify-relay rolling restart initiated reason="on-call mitigation" workers=6
+2027-04-12T13:20:40Z INFO  notify-relay rolling restart completed workers=6
+2027-04-12T13:20:50Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:21:00Z INFO  notify-relay summary window=1m deliveries=1472 circuit_open=24 customer_timeout=24 p95_latency_ms=319
+2027-04-12T13:21:02Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:21:25Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:22:00Z INFO  notify-relay summary window=1m deliveries=1517 circuit_open=35 customer_timeout=21 p95_latency_ms=369
+2027-04-12T13:22:26Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:22:41Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:23:00Z INFO  notify-relay summary window=1m deliveries=1498 circuit_open=45 customer_timeout=20 p95_latency_ms=441
+2027-04-12T13:23:18Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:23:49Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:24:00Z INFO  notify-relay summary window=1m deliveries=1499 circuit_open=36 customer_timeout=24 p95_latency_ms=346
+2027-04-12T13:24:07Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:25:00Z INFO  notify-relay summary window=1m deliveries=1513 circuit_open=70 customer_timeout=22 p95_latency_ms=470
+2027-04-12T13:25:58Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:26:00Z INFO  notify-relay summary window=1m deliveries=1459 circuit_open=448 customer_timeout=24 p95_latency_ms=2045
+2027-04-12T13:26:02Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:26:06Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:26:23Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:26:35Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:26:35Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:26:44Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:27:00Z INFO  notify-relay summary window=1m deliveries=1502 circuit_open=456 customer_timeout=32 p95_latency_ms=2090
+2027-04-12T13:27:02Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:27:27Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:27:27Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:27:30Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:27:40Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:27:40Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:28:00Z INFO  notify-relay summary window=1m deliveries=1486 circuit_open=479 customer_timeout=34 p95_latency_ms=2204
+2027-04-12T13:28:08Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:28:16Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:28:16Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:28:24Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:28:37Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:28:49Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:28:53Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:28:58Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:29:00Z INFO  notify-relay summary window=1m deliveries=1473 circuit_open=470 customer_timeout=35 p95_latency_ms=2186
+2027-04-12T13:29:15Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:29:20Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:29:23Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:29:58Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:30:00Z INFO  notify-relay summary window=1m deliveries=1485 circuit_open=484 customer_timeout=38 p95_latency_ms=2246
+2027-04-12T13:30:08Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:30:18Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:30:26Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:30:38Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:31:00Z INFO  notify-relay summary window=1m deliveries=1485 circuit_open=466 customer_timeout=27 p95_latency_ms=2136
+2027-04-12T13:31:09Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:31:18Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:31:34Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:31:35Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:31:42Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:32:00Z INFO  notify-relay summary window=1m deliveries=1522 circuit_open=180 customer_timeout=27 p95_latency_ms=916
+2027-04-12T13:32:00Z INFO  config-sync applied commit=a71fe22 file=relay-config/workers.yaml change="replicas: 6 -> 10"
+2027-04-12T13:32:30Z INFO  notify-relay scaled workers=10
+2027-04-12T13:32:38Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:32:49Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:33:00Z INFO  notify-relay summary window=1m deliveries=1435 circuit_open=175 customer_timeout=23 p95_latency_ms=989
+2027-04-12T13:33:03Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:33:31Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:33:35Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:33:44Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:34:00Z INFO  notify-relay summary window=1m deliveries=1494 circuit_open=184 customer_timeout=26 p95_latency_ms=962
+2027-04-12T13:35:00Z INFO  notify-relay summary window=1m deliveries=1532 circuit_open=137 customer_timeout=13 p95_latency_ms=735
+2027-04-12T13:35:32Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:35:45Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:36:00Z INFO  notify-relay summary window=1m deliveries=1526 circuit_open=157 customer_timeout=24 p95_latency_ms=860
+2027-04-12T13:36:26Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:37:00Z INFO  notify-relay summary window=1m deliveries=1502 circuit_open=182 customer_timeout=27 p95_latency_ms=975
+2027-04-12T13:37:05Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:37:21Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:37:29Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:38:00Z INFO  notify-relay summary window=1m deliveries=1472 circuit_open=162 customer_timeout=21 p95_latency_ms=850
+2027-04-12T13:38:04Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:38:19Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:39:00Z INFO  notify-relay summary window=1m deliveries=1458 circuit_open=156 customer_timeout=18 p95_latency_ms=840
+2027-04-12T13:40:00Z INFO  notify-relay summary window=1m deliveries=1520 circuit_open=185 customer_timeout=24 p95_latency_ms=966
+2027-04-12T13:41:00Z INFO  notify-relay summary window=1m deliveries=1488 circuit_open=173 customer_timeout=22 p95_latency_ms=909
+2027-04-12T13:41:16Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:42:00Z INFO  notify-relay summary window=1m deliveries=1457 circuit_open=169 customer_timeout=15 p95_latency_ms=923
+2027-04-12T13:42:42Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:43:00Z INFO  notify-relay summary window=1m deliveries=1513 circuit_open=173 customer_timeout=22 p95_latency_ms=940
+2027-04-12T13:43:01Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:43:03Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:44:00Z INFO  notify-relay summary window=1m deliveries=1481 circuit_open=159 customer_timeout=16 p95_latency_ms=832
+2027-04-12T13:45:00Z INFO  notify-relay summary window=1m deliveries=1468 circuit_open=139 customer_timeout=28 p95_latency_ms=845
+2027-04-12T13:45:16Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:45:41Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:45:44Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:46:00Z INFO  notify-relay summary window=1m deliveries=1491 circuit_open=137 customer_timeout=23 p95_latency_ms=794
+2027-04-12T13:46:10Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:46:25Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:46:31Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:46:48Z ERROR notify-relay endpoint=ep-aps-010.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:47:00Z INFO  notify-relay summary window=1m deliveries=1502 circuit_open=144 customer_timeout=27 p95_latency_ms=874
+2027-04-12T13:47:22Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:47:32Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:47:33Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:48:00Z INFO  notify-relay summary window=1m deliveries=1491 circuit_open=144 customer_timeout=23 p95_latency_ms=769
+2027-04-12T13:49:00Z INFO  notify-relay summary window=1m deliveries=1494 circuit_open=168 customer_timeout=19 p95_latency_ms=927
+2027-04-12T13:49:06Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:50:00Z INFO  notify-relay summary window=1m deliveries=1507 circuit_open=175 customer_timeout=27 p95_latency_ms=963
+2027-04-12T13:50:18Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:50:18Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:51:00Z INFO  notify-relay summary window=1m deliveries=1547 circuit_open=165 customer_timeout=28 p95_latency_ms=889
+2027-04-12T13:51:06Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:51:14Z ERROR notify-relay endpoint=ep-aps-003.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:52:00Z INFO  notify-relay summary window=1m deliveries=1494 circuit_open=158 customer_timeout=23 p95_latency_ms=847
+2027-04-12T13:53:00Z INFO  notify-relay summary window=1m deliveries=1450 circuit_open=168 customer_timeout=23 p95_latency_ms=923
+2027-04-12T13:53:04Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:53:06Z ERROR notify-relay endpoint=ep-aps-006.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:53:41Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:53:46Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:54:00Z INFO  notify-relay summary window=1m deliveries=1525 circuit_open=139 customer_timeout=27 p95_latency_ms=750
+2027-04-12T13:54:13Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
+2027-04-12T13:55:00Z INFO  notify-relay summary window=1m deliveries=1481 circuit_open=17 customer_timeout=286 p95_latency_ms=1373
+2027-04-12T13:55:00Z INFO  config-sync applied commit=CB-772 file=relay-config/circuit_breaker.yaml change="group_scope: region -> endpoint, failure_threshold_pct: 15 -> 90"
+2027-04-12T13:55:10Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:55:35Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:55:38Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:55:44Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:55:45Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:55:57Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:56:00Z INFO  notify-relay summary window=1m deliveries=1494 circuit_open=16 customer_timeout=293 p95_latency_ms=1356
+2027-04-12T13:56:09Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:56:16Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:56:17Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:56:23Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:56:25Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:57:00Z INFO  notify-relay summary window=1m deliveries=1509 circuit_open=3 customer_timeout=49 p95_latency_ms=369
+2027-04-12T13:57:00Z INFO  config-sync applied commit=CB-773 file=relay-config/circuit_breaker.yaml change="failure_threshold_pct: 90 -> 50"
+2027-04-12T13:58:00Z INFO  notify-relay summary window=1m deliveries=1525 circuit_open=22 customer_timeout=43 p95_latency_ms=376
+2027-04-12T13:59:00Z INFO  notify-relay summary window=1m deliveries=1486 circuit_open=11 customer_timeout=7 p95_latency_ms=205
+2027-04-12T13:59:36Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T13:59:46Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:00:00Z INFO  notify-relay summary window=1m deliveries=1516 circuit_open=0 customer_timeout=0 p95_latency_ms=126
+2027-04-12T14:00:32Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:00:35Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:00:50Z ERROR notify-relay endpoint=ep-aps-004.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:01:00Z INFO  notify-relay summary window=1m deliveries=1559 circuit_open=4 customer_timeout=5 p95_latency_ms=202
+2027-04-12T14:01:21Z ERROR notify-relay endpoint=ep-aps-012.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:01:49Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:02:00Z INFO  notify-relay summary window=1m deliveries=1435 circuit_open=0 customer_timeout=6 p95_latency_ms=203
+2027-04-12T14:03:00Z INFO  notify-relay summary window=1m deliveries=1520 circuit_open=0 customer_timeout=4 p95_latency_ms=143
+2027-04-12T14:04:00Z INFO  notify-relay summary window=1m deliveries=1470 circuit_open=0 customer_timeout=5 p95_latency_ms=157
+2027-04-12T14:04:40Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:05:00Z INFO  notify-relay summary window=1m deliveries=1519 circuit_open=31 customer_timeout=8 p95_latency_ms=316
+2027-04-12T14:05:15Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:06:00Z INFO  notify-relay summary window=1m deliveries=1522 circuit_open=0 customer_timeout=2 p95_latency_ms=131
+2027-04-12T14:06:05Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:06:05Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:07:00Z INFO  notify-relay summary window=1m deliveries=1543 circuit_open=0 customer_timeout=0 p95_latency_ms=140
+2027-04-12T14:07:46Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:08:00Z INFO  notify-relay summary window=1m deliveries=1511 circuit_open=0 customer_timeout=3 p95_latency_ms=135
+2027-04-12T14:08:32Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:08:41Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:09:00Z INFO  notify-relay summary window=1m deliveries=1545 circuit_open=25 customer_timeout=11 p95_latency_ms=299
+2027-04-12T14:09:20Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:09:36Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:09:39Z ERROR notify-relay endpoint=ep-aps-008.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:10:00Z INFO  notify-relay summary window=1m deliveries=1504 circuit_open=20 customer_timeout=8 p95_latency_ms=307
+2027-04-12T14:10:28Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:10:34Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:10:43Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:11:00Z INFO  notify-relay summary window=1m deliveries=1481 circuit_open=4 customer_timeout=7 p95_latency_ms=167
+2027-04-12T14:12:00Z INFO  notify-relay summary window=1m deliveries=1498 circuit_open=0 customer_timeout=8 p95_latency_ms=152
+2027-04-12T14:12:02Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:12:29Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:12:31Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:13:00Z INFO  notify-relay summary window=1m deliveries=1473 circuit_open=0 customer_timeout=0 p95_latency_ms=138
+2027-04-12T14:13:08Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:13:53Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:14:00Z INFO  notify-relay summary window=1m deliveries=1478 circuit_open=0 customer_timeout=0 p95_latency_ms=132
+2027-04-12T14:14:07Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:14:08Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:14:34Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
+2027-04-12T14:15:00Z INFO  notify-relay summary window=1m deliveries=1467 circuit_open=9 customer_timeout=9 p95_latency_ms=221

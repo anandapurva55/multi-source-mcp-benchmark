@@ -1,0 +1,48 @@
+claims:
+  - id: p95_figures
+    description: >
+      Reports baseline P95 latency as approximately 83.0ms and adaptive-prefetch P95
+      latency as approximately 75.2ms (each within 2ms), using run_1 and run_2 as the
+      comparison, a roughly 9% relative improvement.
+    points: 3
+
+  - id: hit_rate_figures
+    description: >
+      Reports baseline cache hit rate as approximately 70.8% and adaptive-prefetch hit
+      rate as approximately 76.0% (each within 1 point), using run_1 and run_2, a +5.2
+      percentage point improvement.
+    points: 3
+
+  - id: duplicate_sample
+    description: >
+      Identifies and correctly handles the duplicate logged sample for minute_offset 14
+      in run_2, using 30 unique one-minute samples (not 31) to compute run_2's statistics.
+    points: 3
+
+  - id: traffic_hardware_confound
+    description: >
+      Explains that run_3 is not a valid comparison for the hit-rate claim because it uses
+      a different, easier traffic profile (catalog-replay) on different hardware (c7g-app)
+      than run_1, and connects this to the memo's 92% hit-rate figure.
+    points: 3
+
+  - id: cache_warm_confound
+    description: >
+      Explains that run_4 is not a valid comparison for the latency claim because it used
+      a non-standard preloaded cache warm state, and connects this to the memo's 51ms
+      latency figure.
+    points: 3
+
+  - id: verdict
+    description: >
+      States a clear overall verdict that the memo's conclusion is not supported as
+      written: adaptive-prefetch shows a real but modest improvement on both metrics on a
+      fair comparison, well short of the memo's headline numbers.
+    points: 3
+
+  - id: limitation
+    description: >
+      States at least one legitimate limitation, such as the short sample size of each
+      run or the lack of a run that isolates the hardware or cache-warm effect from the
+      strategy change.
+    points: 3

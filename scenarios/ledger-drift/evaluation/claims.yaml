@@ -1,0 +1,46 @@
+claims:
+  - id: net_total
+    description: >
+      States the correct net payout total for the 2027-02-08 through 2027-02-14 batch
+      as $24,460.80 (within $1), based on 22 in-window payouts.
+    points: 3
+
+  - id: duplicate_disbursement
+    description: >
+      Identifies that PAY-8801 (Brightwell Goods) is disbursed twice in the settlement
+      export because of a webhook retry (ticket PAY-INC-552), and excludes the duplicate
+      $1,128.40 from the total.
+    points: 3
+
+  - id: stray_row
+    description: >
+      Identifies that PAY-9999 (seller SLR-999) in the settlement export has no matching
+      entry in the payout ledger, and excludes it ($275.00) as not a real seller payout.
+    points: 3
+
+  - id: late_settlement
+    description: >
+      Identifies that PAY-8841 (Copperline Trading) settles on 2027-02-15, after the batch
+      window ends, and excludes it from this week's total, noting it belongs to the next
+      batch instead.
+    points: 3
+
+  - id: fee_tier_bug
+    description: >
+      Identifies that PAY-8811 (Thistle Provisions, ordered 2027-02-10) was paid out at the
+      old 12% fee tier instead of the correct 9% tier that took effect that date, and states
+      the correct net payout of $582.40 instead of $563.20, a $19.20 underpayment to the seller.
+    points: 3
+
+  - id: unaffected_payouts
+    description: >
+      Correctly identifies that the remaining payouts, all sellers other than the four
+      flagged above, match between the ledger and settlement export with no correction needed.
+    points: 3
+
+  - id: action_list
+    description: >
+      Gives a clear action list covering all four corrections: removing the duplicate
+      Brightwell disbursement, investigating or excluding the stray PAY-9999 row, moving
+      PAY-8841 into next week's batch, and correcting the Thistle Provisions underpayment.
+    points: 3

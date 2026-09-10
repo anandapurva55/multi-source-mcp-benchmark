@@ -1,0 +1,14 @@
+services:
+  main:
+    build:
+      context: ../../../docker
+      dockerfile: base.Dockerfile
+    volumes:
+      - ./evidence:/workspace/evidence:ro
+    command: >
+      bash -c "
+      mkdir -p /workspace/scratch &&
+      uv venv /workspace/scratch/.venv --quiet &&
+      git clone /workspace/evidence/relay-config.bundle /workspace/relay-config --quiet &&
+      sleep infinity
+      "
