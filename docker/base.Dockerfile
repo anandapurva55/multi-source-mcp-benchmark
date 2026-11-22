@@ -2,7 +2,7 @@
 # time so the container can run with networking disabled (see the scenario compose files).
 FROM node:22-bookworm-slim@sha256:e9f565d32859f0cbfb52125eafe8be39390f24dac302dc3cdf566e8ba3ab21ee AS node
 
-FROM python:3.12-slim-bookworm@sha256:935c3c5b12357a7e10caa9c1e6ca5692344d97cf229832ef584be2cec9fc03df
+FROM python:3.15-slim-bookworm@sha256:96599df822d0e1c6bb700014a05c7f3c8cabc6e0f7ff3c4f9f69cee033b4b5d9
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends git sqlite3 ca-certificates \
