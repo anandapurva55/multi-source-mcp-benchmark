@@ -1,4 +1,4 @@
-# Multi-Source MCP Benchmark
+# Multi-Source MCP Benchmark: Tool-Using AI Agents on Conflicting Evidence with MCP, Docker Sandboxes and Claim-Based LLM Grading
 
 A benchmark that tests whether an AI agent can find the right answer when its sources of evidence disagree.
 
