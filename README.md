@@ -5,6 +5,7 @@ A benchmark that tests whether an AI agent can find the right answer when its so
 Each scenario gives the agent a business question, a sandboxed Docker container, and files from several sources that contradict each other. The agent uses tools through the Model Context Protocol (MCP) to read the files and run code. It has to decide which source to trust for which fact, reject a wrong but believable explanation, and give a final answer with specific numbers and evidence. The answer is then scored against a list of facts it should contain.
 
 [![CI](https://github.com/anandapurva55/multi-source-mcp-benchmark/actions/workflows/ci.yml/badge.svg)](https://github.com/anandapurva55/multi-source-mcp-benchmark/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/anandapurva55/multi-source-mcp-benchmark/actions/workflows/codeql.yml/badge.svg)](https://github.com/anandapurva55/multi-source-mcp-benchmark/actions/workflows/codeql.yml)
 ![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-black)
 ![Ollama](https://img.shields.io/badge/Ollama-local%20models-000000?logo=ollama&logoColor=white)
