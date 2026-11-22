@@ -1,10 +1,13 @@
-.PHONY: install test lint up down
+.PHONY: install test test-docker lint up down
 
 install:
 	pip install -e ".[dev]"
 
 test:
 	pytest -v
+
+test-docker:
+	pytest -v -m docker
 
 lint:
 	ruff check tools tests

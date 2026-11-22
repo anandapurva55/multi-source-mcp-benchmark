@@ -1,7 +1,7 @@
 What happened (all times UTC, 2027-04-12)
 
-- 13:00 - The Meridian Retail onboarding wave begins (per Sana's 18:00 IST handover note, 18:30 IST converts to 13:00 UTC). Delivery volume ramps from a baseline of about 640/min toward roughly 1,500/min, matching the 2-3x volume the handover note flagged.
 - 12:45 - notify-relay v3.9.0 deployed: a log format change and a new latency metric, unrelated to breaker or connection handling. Rollout was healthy.
+- 13:00 - The Meridian Retail onboarding wave begins (per Sana's 18:00 IST handover note, 18:30 IST converts to 13:00 UTC). Delivery volume ramps from a baseline of about 640/min toward roughly 1,500/min, matching the 2-3x volume the handover note flagged.
 - 13:05 - config-sync applies commit CB-771, tightening the circuit breaker: failure threshold drops from 50% to 15%, and the breaker's grouping widens from per-endpoint to per-region.
 - 13:06-13:08 - A handful of genuinely slow endpoints in the ap-south region begin timing out as load ramps (customer_timeout climbs from about 14 to 28 per minute), but circuit_open stays low (3-9 per minute); the breaker has not tripped yet.
 - 13:09 - The region's aggregate error rate crosses the new 15% threshold and the breaker trips for the entire ap-south region. circuit_open jumps from 9 to 503 per minute and stays elevated (494-530/min) through 13:12, blocking delivery to many endpoints that were never actually slow, because the breaker is now scoped to the whole region rather than the individual endpoints that were failing.

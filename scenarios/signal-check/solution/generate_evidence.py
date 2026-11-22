@@ -1,10 +1,18 @@
+import argparse
 import csv
 import random
 import statistics
 from pathlib import Path
 
-out = Path("signal_check_out")
-out.mkdir(exist_ok=True)
+_parser = argparse.ArgumentParser(description="Regenerate this scenario's evidence deterministically.")
+_parser.add_argument(
+    "--out",
+    type=Path,
+    default=Path(__file__).resolve().parent.parent / "environment" / "evidence",
+    help="directory to write evidence into (default: the scenario's environment/evidence)",
+)
+out = _parser.parse_args().out
+out.mkdir(parents=True, exist_ok=True)
 
 def gen_run(n, p95_center, p95_spread, hit_center, hit_spread, seed):
     rng = random.Random(seed)

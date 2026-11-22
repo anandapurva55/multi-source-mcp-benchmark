@@ -2,18 +2,21 @@
   "servers": [
     {
       "name": "filesystem",
-      "command": "npx",
-      "args": ["@modelcontextprotocol/server-filesystem@2026.7.10", "/workspace/evidence", "/workspace/relay-config"]
+      "command": "mcp-server-filesystem",
+      "args": [
+        "/workspace/evidence",
+        "/workspace/relay-config"
+      ]
     },
     {
       "name": "git",
-      "command": "uvx",
-      "args": ["--with", "mcp<2", "mcp-server-git==2026.7.10"]
+      "command": "mcp-server-git",
+      "args": []
     },
     {
       "name": "code-executor",
-      "command": "npx",
-      "args": ["@geobio/code_execution_server@0.2.1"],
+      "command": "mcp_code_execution_server",
+      "args": [],
       "env": {
         "CODE_STORAGE_DIR": "/workspace/scratch",
         "ENV_TYPE": "venv-uv",
@@ -22,21 +25,21 @@
     },
     {
       "name": "calculator",
-      "command": "uvx",
-      "args": ["--with", "mcp<2", "mcp-server-calculator==0.2.0"]
+      "command": "mcp-server-calculator",
+      "args": []
     }
   ],
   "tool_policy": {
     "required": [
       "filesystem:list_directory",
       "filesystem:read_text_file",
-      "git:log",
-      "git:show",
+      "git:git_log",
+      "git:git_show",
       "code-executor:execute_code"
     ],
     "distractors_same_server": [
       "filesystem:search_files",
-      "git:status"
+      "git:git_status"
     ],
     "distractors_other_server": [
       "calculator:calculate"

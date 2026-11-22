@@ -14,15 +14,19 @@ claims:
 
   - id: stray_row
     description: >
-      Identifies that PAY-9999 (seller SLR-999) in the settlement export has no matching
-      entry in the payout ledger, and excludes it ($275.00) as not a real seller payout.
+      Identifies that PAY-9999 (seller SLR-999, $275.00) is in the settlement export but has
+      no entry in the payout ledger. Because the settlement export is the record of money
+      moved, treats it as a real outflow of $275.00 that cannot be attributed to any ledger
+      payout: excludes it from the seller net payout total and flags it for investigation
+      (accepting or recovering it), rather than dismissing it as bogus data.
     points: 3
 
   - id: late_settlement
     description: >
-      Identifies that PAY-8841 (Copperline Trading) settles on 2027-02-15, after the batch
-      window ends, and excludes it from this week's total, noting it belongs to the next
-      batch instead.
+      Identifies that PAY-8841 (Copperline Trading, $2,366.00) was disbursed on 2027-02-15,
+      after the batch window ends, and excludes it from this week's total, noting it belongs
+      to the next batch instead. The settled amount equals the ledger amount, so no amount
+      discrepancy should be reported for it.
     points: 3
 
   - id: fee_tier_bug
@@ -41,6 +45,6 @@ claims:
   - id: action_list
     description: >
       Gives a clear action list covering all four corrections: removing the duplicate
-      Brightwell disbursement, investigating or excluding the stray PAY-9999 row, moving
+      Brightwell disbursement, excluding and investigating the unattributed PAY-9999 outflow, moving
       PAY-8841 into next week's batch, and correcting the Thistle Provisions underpayment.
     points: 3

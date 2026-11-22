@@ -1,9 +1,17 @@
+import argparse
 import csv
 import sqlite3
 from pathlib import Path
 
-out = Path("ledger_drift_out")
-out.mkdir(exist_ok=True)
+_parser = argparse.ArgumentParser(description="Regenerate this scenario's evidence deterministically.")
+_parser.add_argument(
+    "--out",
+    type=Path,
+    default=Path(__file__).resolve().parent.parent / "environment" / "evidence",
+    help="directory to write evidence into (default: the scenario's environment/evidence)",
+)
+out = _parser.parse_args().out
+out.mkdir(parents=True, exist_ok=True)
 
 # seller_id, seller_name, fee_tier_rate (as of order date, per fee_tier_schedule.md)
 # Thistle Provisions crosses from tier 1 (12%) to tier 2 (9%) on 2027-02-10
@@ -90,8 +98,7 @@ for payout_id, seller_id, order_date, gross, correct, fee_amount, net in true_ro
               "-> correct net", net, "vs ledger net", next(r for r in true_rows if r[0] == payout_id))
 
 # --- settlement window: 2027-02-08T00:00:00Z through 2027-02-15T00:00:00Z ---
-# PAY-8841 disburses 2027-02-15 (late, next window) at a slightly different actual amount
-# (materially the same story as an FX/settlement-timing delta, kept simple as a flat delta here)
+# PAY-8841 disburses 2027-02-15 (late, next window) for exactly the amount the ledger instructed
 disbursements = []
 batch_main = "BATCH-2027W07"
 batch_next = "BATCH-2027W08"
@@ -107,16 +114,15 @@ for payout_id, seller_id, order_date, gross, correct, fee_amount, net in true_ro
     ledger_net_amount = round(ledger_gross - ledger_fee, 2)
     disbursements.append((payout_id, seller_id, ledger_net_amount, disbursed_at, batch_main))
 
-# PAY-8841: settles late, actual amount differs slightly (settlement-day rate vs ledger's estimate)
-pay_8841_ledger_net = next(round(r[3] - round(r[3] * r[4], 2), 2) for r in rows if r[0] == "PAY-8841")
-pay_8841_actual_net = round(pay_8841_ledger_net - 11.42, 2)  # small real-world settlement delta
-disbursements.append(("PAY-8841", "SLR-226", pay_8841_actual_net, "2027-02-15T09:20:00Z", batch_next))
+# PAY-8841: settles one day late, same amount as the ledger instructed
+pay_8841_net = next(round(r[3] - round(r[3] * r[4], 2), 2) for r in rows if r[0] == "PAY-8841")
+disbursements.append(("PAY-8841", "SLR-226", pay_8841_net, "2027-02-15T09:20:00Z", batch_next))
 
 # Duplicate: PAY-8801 (Brightwell) double-disbursed due to a webhook retry
 dup = next(d for d in disbursements if d[0] == "PAY-8801")
 disbursements.append((dup[0], dup[1], dup[2], "2027-02-08T18:04:00Z", batch_main))
 
-# Stray settlement row with no matching seller in the ledger at all
+# Settlement row with no corresponding payout_id in the ledger at all
 disbursements.append(("PAY-9999", "SLR-999", 275.00, "2027-02-11T12:00:00Z", batch_main))
 
 db_path = out / "settlement_export.sqlite"

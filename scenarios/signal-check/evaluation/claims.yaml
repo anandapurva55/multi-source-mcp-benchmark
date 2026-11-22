@@ -22,14 +22,14 @@ claims:
   - id: traffic_hardware_confound
     description: >
       Explains that run_3 is not a valid comparison for the hit-rate claim because it uses
-      a different, easier traffic profile (catalog-replay) on different hardware (c7g-app)
+      a different traffic profile (synthetic catalog-replay) on different hardware (c7g-app)
       than run_1, and connects this to the memo's 92% hit-rate figure.
     points: 3
 
   - id: cache_warm_confound
     description: >
       Explains that run_4 is not a valid comparison for the latency claim because it used
-      a non-standard preloaded cache warm state, and connects this to the memo's 51ms
+      a preloaded cache rather than the cold start the baseline used, and connects this to the memo's 51ms
       latency figure.
     points: 3
 
@@ -40,9 +40,18 @@ claims:
       fair comparison, well short of the memo's headline numbers.
     points: 3
 
+  - id: uncertainty
+    description: >
+      Quantifies uncertainty on the matched comparison from the within-run variance of the
+      per-minute samples (for example a Welch t-statistic of about -6 for latency and about
+      +11 for hit rate, or a 95% interval of roughly -10 to -5 ms and +4.3 to +6.1 points),
+      and concludes that both improvements are distinguishable from noise but modest.
+    points: 3
+
   - id: limitation
     description: >
-      States at least one legitimate limitation, such as the short sample size of each
-      run or the lack of a run that isolates the hardware or cache-warm effect from the
+      States at least one legitimate limitation: the "P95" of a run is a mean of per-minute
+      P95 samples, which is not a true run-level P95; or each configuration has only a
+      single 30-minute run; or no run isolates the hardware or cache-start effect from the
       strategy change.
     points: 3

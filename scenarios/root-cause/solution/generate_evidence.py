@@ -1,10 +1,11 @@
 """Regenerate every piece of root-cause's evidence deterministically.
 
-Run from this directory: python generate_evidence.py
-Writes app_logs.txt and relay-config.bundle into ../environment/evidence/,
+Usage: python generate_evidence.py [--out DIR]
+Writes app_logs.txt and relay-config.bundle into DIR (default ../environment/evidence/),
 overwriting what's already there, and prints the figures the reference
 answer and evaluation claims are built from.
 """
+import argparse
 import random
 import shutil
 import subprocess
@@ -112,8 +113,8 @@ def generate_logs() -> list[tuple[datetime, str]]:
     return lines
 
 
-def write_logs(lines: list[tuple[datetime, str]]) -> None:
-    out = EVIDENCE_DIR / "app_logs.txt"
+def write_logs(lines: list[tuple[datetime, str]], evidence_dir: Path) -> None:
+    out = evidence_dir / "app_logs.txt"
     with out.open("w") as f:
         for t, text in lines:
             f.write(f"{t.strftime('%Y-%m-%dT%H:%M:%SZ')} {text}\n")
@@ -124,7 +125,7 @@ def write_logs(lines: list[tuple[datetime, str]]) -> None:
     print(f"raw ERROR sample ratio circuit_open:customer_timeout = {co_count}:{ct_count} ({co_count / ct_count:.1f}:1)")
 
 
-def build_config_bundle() -> None:
+def build_config_bundle(evidence_dir: Path) -> None:
     """Rebuild relay-config's commit history and export it as a portable bundle.
 
     A git repository nested inside this repository would be recorded as a
@@ -184,7 +185,7 @@ def build_config_bundle() -> None:
         commit(repo, "2027-04-12T13:57:00+00:00", "Jordan Ellery",
                "jordan.ellery@fernbridge.example", "CB-773: restore standard breaker threshold")
 
-        bundle_path = EVIDENCE_DIR / "relay-config.bundle"
+        bundle_path = evidence_dir / "relay-config.bundle"
         subprocess.run(["git", "bundle", "create", str(bundle_path), "--all"], cwd=repo, check=True)
         print(f"wrote 5-commit history to {bundle_path}")
 
@@ -192,5 +193,10 @@ def build_config_bundle() -> None:
 if __name__ == "__main__":
     if not shutil.which("git"):
         raise SystemExit("git is required to regenerate relay-config.bundle")
-    write_logs(generate_logs())
-    build_config_bundle()
+    parser = argparse.ArgumentParser(description="Regenerate this scenario's evidence deterministically.")
+    parser.add_argument("--out", type=Path, default=EVIDENCE_DIR,
+                        help="directory to write evidence into (default: the scenario's environment/evidence)")
+    out = parser.parse_args().out
+    out.mkdir(parents=True, exist_ok=True)
+    write_logs(generate_logs(), out)
+    build_config_bundle(out)

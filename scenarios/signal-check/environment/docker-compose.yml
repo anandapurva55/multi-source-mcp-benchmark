@@ -1,8 +1,13 @@
 services:
   main:
+    container_name: msmb-signal-check
     build:
       context: ../../../docker
       dockerfile: base.Dockerfile
+    # No network: the agent cannot reach the public repo (and its answer key) or any other host.
+    network_mode: none
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - ./evidence:/workspace/evidence:ro
     command: ["bash", "-c", "mkdir -p /workspace/scratch && uv venv /workspace/scratch/.venv --quiet && sleep infinity"]
