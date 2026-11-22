@@ -304,7 +304,7 @@ pytest -m docker    # needs Docker: see below
 
 The Docker tests build the image and start every scenario. They check that every declared MCP server starts and offers the tools named in its policy file, that the container has no network, that the agent runs as a non-root user, that only the scratch folder is writable, and that the code tool can read the evidence (SQLite, CSV or git history).
 
-CI runs both commands on every push, and CodeQL scans the code. Dependabot opens weekly pull requests for newer versions of the GitHub Actions, the Python packages and the Docker base image. CI never calls a model.
+CI runs both commands on every push, and CodeQL scans the code. Dependabot is configured for the GitHub Actions, the Python packages and the Docker base image, but its pull-request limit is 0, so version updates are made by hand. CI never calls a model.
 
 ---
 
