@@ -21,6 +21,14 @@ This project tests that missing skill. Each scenario gives an agent a business q
 | :---: | :---: | :---: | :---: | :---: |
 | **3** | **5 to 8** | **7 to 8** | **4** (filesystem, code execution, git, calculator) | **none** |
 
+## Results at a glance
+
+- **Judge:** `gpt-4.1-mini` and `gpt-4.1` pass all 15 calibration cases. `gpt-4o-mini` and the best local judge (`llama3.1:8b`) each fail 2.
+- **Baseline agents:** three small local models score 17% or less on every scenario, and none solves one. No frontier model has been run yet.
+- **Cost:** the agent runs locally with no cost per token. Calibrating a judge takes about 91K to 273K prompt tokens.
+
+Details are in [What it shows](#what-it-shows).
+
 ## Table of contents
 
 1. **[The problem](#the-problem)**
@@ -352,7 +360,7 @@ How the cost is kept down:
 
 ### Known limitations
 
-- The scenarios are synthetic and small. They test reasoning over conflicting evidence, not scale. A strong model may get full marks on some claims, so the per-claim scores are more useful than the total.
+- The scenarios are synthetic and small. They test reasoning over conflicting evidence, not scale. No strong model has been tested, so it is unknown how close one would get to full marks. The per-claim scores are more useful than the total.
 - Scoring depends on the judge model. Claims are written as explicit facts to reduce variation, but judges differ a lot, and two of the four tried failed calibration. Run `tools/calibrate.py` for any judge you use, and compare scores only between runs that used the same judge.
 - The runner supports Ollama only. The baseline agent results are single runs at temperature 0, so there is no variance estimate, and no frontier model has been tested. Tool calls are recorded but not scored.
 - The `code-executor` tool can run any code inside the container. The container is isolated from the network and the host, but the code can still read the evidence it is meant to analyze.

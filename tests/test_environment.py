@@ -111,4 +111,5 @@ def test_code_executor_reads_the_evidence_as_the_unprivileged_user(running: str)
     code, expected = CODE_CHECKS[running]
     config = REPO_ROOT / "scenarios" / running / "mcp-servers.json"
     out = asyncio.run(_execute_code(config, f"msmb-{running}", code))
-    assert expected in out, out
+    # The tool replies with JSON; its "output" field holds exactly what the script printed.
+    assert json.loads(out)["output"].strip() == expected, out
