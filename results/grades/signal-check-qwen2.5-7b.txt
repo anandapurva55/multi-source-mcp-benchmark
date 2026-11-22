@@ -1,0 +1,27 @@
+claim                       score /3  points    description
+p95_figures                 0         0.0       Reports baseline P95 latency as approximately 83.0ms and adaptive-prefetch P95 latency as approximately 75.2ms (each within 2ms), using run_1 and run_2 as the comparison, a roughly 9% relative improvement.
+
+hit_rate_figures            0         0.0       Reports baseline cache hit rate as approximately 70.8% and adaptive-prefetch hit rate as approximately 76.0% (each within 1 point), using run_1 and run_2, a +5.2 percentage point improvement.
+
+duplicate_sample            0         0.0       Identifies and correctly handles the duplicate logged sample for minute_offset 14 in run_2, using 30 unique one-minute samples (not 31) to compute run_2's statistics.
+
+traffic_hardware_confound   0         0.0       Explains that run_3 is not a valid comparison for the hit-rate claim because it uses a different traffic profile (synthetic catalog-replay) on different hardware (c7g-app) than run_1, and connects this to the memo's 92% hit-rate figure.
+
+cache_warm_confound         1         1.0       Explains that run_4 is not a valid comparison for the latency claim because it used a preloaded cache rather than the cold start the baseline used, and connects this to the memo's 51ms latency figure.
+
+verdict                     3         3.0       States a clear overall verdict that the memo's conclusion is not supported as written: adaptive-prefetch shows a real but modest improvement on both metrics on a fair comparison, well short of the memo's headline numbers.
+
+uncertainty                 0         0.0       Quantifies uncertainty on the matched comparison from the within-run variance of the per-minute samples (for example a Welch t-statistic of about -6 for latency and about +11 for hit rate, or a 95% interval of roughly -10 to -5 ms and +4.3 to +6.1 points), and concludes that both improvements are distinguishable from noise but modest.
+
+limitation                  0         0.0       States at least one legitimate limitation: the "P95" of a run is a mean of per-minute P95 samples, which is not a true run-level P95; or each configuration has only a single 30-minute run; or no run isolates the hardware or cache-start effect from the strategy change.
+
+
+penalty (wrong conclusion)  endorsed  deducted  description
+endorses_memo_figures       0         -0.0      Treats the memo's 92% hit rate or 51 ms latency as a valid result of adaptive-prefetch versus the baseline, or uses run_3 or run_4 as its headline comparison to run_1.
+
+approves_rollout_on_memo    0         -0.0      Concludes that the memo's evidence supports a fleet-wide rollout as written.
+
+
+Claims: 4.00 / 24   Penalties: -0.00
+Weighted total: 4.00 / 24 (16.7%)
+Judge usage: 10 calls, 11478 prompt tokens, 814 completion tokens

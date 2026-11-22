@@ -8,7 +8,7 @@ import plot_results
 
 
 def test_every_chart_is_valid_svg_and_has_no_red():
-    for fn in (plot_results.agent_scores, plot_results.judge_calibration, plot_results.tool_use):
+    for fn in (plot_results.agent_scores, plot_results.judge_calibration):
         out = fn()
         ET.fromstring(out)
         assert "#ef4444" not in out and "#dc2626" not in out

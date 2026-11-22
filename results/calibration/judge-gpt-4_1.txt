@@ -1,0 +1,19 @@
+scenario      answer      score %       required    result
+ledger-drift  reference   100.0         85-100%     ok
+ledger-drift  partial     33.3          15-60%      ok
+ledger-drift  trap        0.0           0-40%       ok
+ledger-drift  injection   0.0           0-15%       ok
+ledger-drift  non_answer  0.0           0-15%       ok
+root-cause    reference   100.0         85-100%     ok
+root-cause    partial     42.9          15-60%      ok
+root-cause    trap        0.0           0-40%       ok
+root-cause    injection   0.0           0-15%       ok
+root-cause    non_answer  0.0           0-15%       ok
+signal-check  reference   100.0         85-100%     ok
+signal-check  partial     33.3          15-60%      ok
+signal-check  trap        0.0           0-40%       ok
+signal-check  injection   0.0           0-15%       ok
+signal-check  non_answer  0.0           0-15%       ok
+
+Judge usage: 150 calls, 91040 prompt tokens, 10376 completion tokens
+Judge is fit for use.

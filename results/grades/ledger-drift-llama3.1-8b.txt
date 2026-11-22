@@ -1,0 +1,27 @@
+claim                       score /3  points    description
+net_total                   0         0.0       States the correct net payout total for the 2027-02-08 through 2027-02-14 batch as $24,460.80 (within $1), based on 22 in-window payouts.
+
+duplicate_disbursement      0         0.0       Identifies that PAY-8801 (Brightwell Goods) is disbursed twice in the settlement export because of a webhook retry (ticket PAY-INC-552), and excludes the duplicate $1,128.40 from the total.
+
+stray_row                   0         0.0       Identifies that PAY-9999 (seller SLR-999, $275.00) is in the settlement export but has no entry in the payout ledger. Because the settlement export is the record of money moved, treats it as a real outflow of $275.00 that cannot be attributed to any ledger payout: excludes it from the seller net payout total and flags it for investigation (accepting or recovering it), rather than dismissing it as bogus data.
+
+late_settlement             0         0.0       Identifies that PAY-8841 (Copperline Trading, $2,366.00) was disbursed on 2027-02-15, after the batch window ends, and excludes it from this week's total, noting it belongs to the next batch instead. The settled amount equals the ledger amount, so no amount discrepancy should be reported for it.
+
+fee_tier_bug                0         0.0       Identifies that PAY-8811 (Thistle Provisions, ordered 2027-02-10) was paid out at the old 12% fee tier instead of the correct 9% tier that took effect that date, and states the correct net payout of $582.40 instead of $563.20, a $19.20 underpayment to the seller.
+
+unaffected_payouts          0         0.0       Correctly identifies that the remaining payouts, all sellers other than the four flagged above, match between the ledger and settlement export with no correction needed.
+
+action_list                 0         0.0       Gives a clear action list covering all four corrections: removing the duplicate Brightwell disbursement, excluding and investigating the unattributed PAY-9999 outflow, moving PAY-8841 into next week's batch, and correcting the Thistle Provisions underpayment.
+
+
+penalty (wrong conclusion)  endorsed  deducted  description
+uses_raw_totals             0         -0.0      Presents the raw settlement export total ($25,845.00, which includes the duplicate and the stray row) or the uncorrected ledger total ($24,441.60) as the correct net payout for the batch.
+
+includes_stray_row          0         -0.0      Includes PAY-9999 ($275.00) as a legitimate seller payout in the net payout total, or asserts it needs no follow-up.
+
+invents_amount_discrepancy  0         -0.0      Claims that PAY-8841's settled amount differs from its ledger amount of $2,366.00, or treats the one-day delay as an amount error.
+
+
+Claims: 0.00 / 21   Penalties: -0.00
+Weighted total: 0.00 / 21 (0.0%)
+Judge usage: 10 calls, 3968 prompt tokens, 399 completion tokens

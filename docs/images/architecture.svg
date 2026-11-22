@@ -31,20 +31,20 @@
 
   <!-- AGENT -->
   <rect x="40" y="160" width="230" height="250" rx="16" fill="#1e1b4b" stroke="url(#gAgent)" stroke-width="2.5" filter="url(#glow)"/>
-  <text x="155" y="196" text-anchor="middle" font-size="19" font-weight="700" fill="#ede9fe">Agent under test</text>
-  <text x="155" y="219" text-anchor="middle" font-size="13" fill="#c4b5fd">any MCP-capable LLM</text>
+  <text x="155" y="196" text-anchor="middle" font-size="19" font-weight="700" fill="#ede9fe">Agent model</text>
+  <text x="155" y="219" text-anchor="middle" font-size="13" fill="#c4b5fd">runs locally, no cost per token</text>
   <!-- ollama + llama pills -->
   <g font-size="13" font-weight="700" text-anchor="middle">
     <rect x="62" y="240" width="186" height="34" rx="17" fill="#ffffff"/>
     <circle cx="86" cy="257" r="9" fill="#0b1220"/><circle cx="86" cy="255" r="3.2" fill="#ffffff"/><rect x="82.6" y="259" width="6.8" height="3" rx="1.5" fill="#ffffff"/>
-    <text x="156" y="262" fill="#0b1220">Ollama runner</text>
+    <text x="156" y="262" fill="#0b1220">Ollama</text>
     <rect x="62" y="284" width="186" height="34" rx="17" fill="#2563eb"/>
     <path d="M76,301 q4,-8 8,0 q4,8 8,0" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
-    <text x="170" y="306" fill="#ffffff">Qwen 2.5 7B default</text>
+    <text x="170" y="306" fill="#ffffff">Qwen 2.5 7B (default)</text>
   </g>
   <text x="155" y="352" text-anchor="middle" font-size="12" fill="#a5b4fc">reads brief.md</text>
   <text x="155" y="372" text-anchor="middle" font-size="12" fill="#a5b4fc">chooses tools, writes answer</text>
-  <text x="155" y="392" text-anchor="middle" font-size="12" fill="#a5b4fc">plug in any other agent too</text>
+  <text x="155" y="392" text-anchor="middle" font-size="12" fill="#a5b4fc">any MCP-capable LLM works</text>
 
   <!-- SANDBOX -->
   <rect x="300" y="160" width="520" height="400" rx="18" fill="#0f1a2e" stroke="url(#gSand)" stroke-width="2.5" stroke-dasharray="12 7" filter="url(#glow)"/>
@@ -73,7 +73,7 @@
     <text x="682" y="322" font-size="15" font-weight="700" fill="#fef3c7">calculator</text>
     <text x="682" y="343" font-size="12" fill="#fcd34d">distractor tool</text>
   </g>
-  <text x="560" y="382" text-anchor="middle" font-size="12" fill="#64748b">4 MCP servers, pinned and preinstalled at build time</text>
+  <text x="560" y="382" text-anchor="middle" font-size="12" fill="#64748b">4 MCP servers: tools, not models. Pinned and preinstalled at build time</text>
 
   <!-- evidence -->
   <rect x="326" y="400" width="468" height="136" rx="14" fill="#06262b" stroke="#2dd4bf" stroke-width="1.8"/>
@@ -92,23 +92,25 @@
     <text x="1005" y="218" font-size="13" fill="#fcd34d">7 to 8 independent, checkable facts</text>
     <text x="1005" y="236" font-size="13" fill="#fcd34d">per scenario</text>
 
-    <rect x="850" y="284" width="310" height="104" rx="16" fill="#1e1b4b" stroke="url(#gJudge)" stroke-width="2.5" filter="url(#glow)"/>
-    <text x="1005" y="318" font-size="17" font-weight="700" fill="#e0e7ff">grade.py · LLM judge</text>
-    <text x="1005" y="342" font-size="13" fill="#a5b4fc">answer delimited as data</text>
-    <text x="1005" y="362" font-size="13" fill="#a5b4fc">strict {"score": N} reply</text>
+    <rect x="850" y="272" width="310" height="130" rx="16" fill="#1e1b4b" stroke="url(#gJudge)" stroke-width="2.5" filter="url(#glow)"/>
+    <text x="1005" y="300" font-size="17" font-weight="700" fill="#e0e7ff">Judge model (grade.py)</text>
+    <rect x="905" y="311" width="200" height="28" rx="14" fill="#4f46e5"/>
+    <text x="1005" y="330" font-size="13" font-weight="700" fill="#ffffff">GPT-4.1 mini (recommended)</text>
+    <text x="1005" y="360" font-size="13" fill="#a5b4fc">hosted API, billed per token</text>
+    <text x="1005" y="380" font-size="13" fill="#a5b4fc">answer treated as data, strict score</text>
 
-    <rect x="850" y="420" width="310" height="104" rx="16" fill="#052e1f" stroke="url(#gScore)" stroke-width="2.5"/>
-    <text x="1005" y="454" font-size="17" font-weight="700" fill="#d1fae5">Per-claim score</text>
-    <text x="1005" y="478" font-size="13" fill="#6ee7b7">0 to 3 each, weighted total</text>
-    <text x="1005" y="498" font-size="13" fill="#6ee7b7">partial credit, no all-or-nothing</text>
+    <rect x="850" y="428" width="310" height="96" rx="16" fill="#052e1f" stroke="url(#gScore)" stroke-width="2.5"/>
+    <text x="1005" y="458" font-size="17" font-weight="700" fill="#d1fae5">Score (plain code, no model)</text>
+    <text x="1005" y="482" font-size="13" fill="#6ee7b7">0 to 3 per claim, minus penalties</text>
+    <text x="1005" y="502" font-size="13" fill="#6ee7b7">weighted total, partial credit</text>
   </g>
 
   <!-- arrows -->
   <g stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arr)">
     <path d="M270,250 L298,250"/>
     <path d="M298,300 L272,300"/>
-    <path d="M1005,252 L1005,282"/>
-    <path d="M1005,388 L1005,418"/>
+    <path d="M1005,252 L1005,270"/>
+    <path d="M1005,402 L1005,426"/>
     <path d="M560,386 L560,398" stroke-width="1.5"/>
     <path d="M155,410 L155,588 L835,588 L835,336 L848,336" stroke-dasharray="6 5"/>
   </g>

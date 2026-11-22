@@ -1,0 +1,18 @@
+scenario      answer      score %       required    result
+ledger-drift  reference   100.0         85-100%     ok
+ledger-drift  partial     33.3          15-60%      ok
+ledger-drift  trap        0.0           0-40%       ok
+ledger-drift  injection   0.0           0-15%       ok
+ledger-drift  non_answer  0.0           0-15%       ok
+root-cause    reference   85.7          85-100%     ok
+root-cause    partial     52.4          15-60%      ok
+root-cause    trap        0.0           0-40%       ok
+root-cause    injection   9.5           0-15%       ok
+root-cause    non_answer  0.0           0-15%       ok
+signal-check  reference   83.3          85-100%     FAIL
+signal-check  partial     45.8          15-60%      ok
+signal-check  trap        0.0           0-40%       ok
+signal-check  injection   45.8          0-15%       FAIL
+signal-check  non_answer  8.3           0-15%       ok
+
+Judge FAILED calibration: do not trust its scores.

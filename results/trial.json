@@ -1,0 +1,523 @@
+{
+  "note": "Agent answers come from one run per model and scenario at temperature 0, graded by gpt-4.1, which passes judge calibration. Indicative only: no repeated agent runs, so no variance estimate.",
+  "agent_runs": [
+    {
+      "scenario": "ledger-drift",
+      "model": "llama3.2",
+      "claim_points": 0.0,
+      "penalty_points": 0.0,
+      "total_points": 21,
+      "percent": 0.0,
+      "status": "scored",
+      "tool_calls": 3,
+      "tools": {
+        "required": 2,
+        "distractor": 1,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/ledger-drift/llama3.2/answer.md",
+        "trajectory": "results/runs/ledger-drift/llama3.2/trajectory.jsonl"
+      }
+    },
+    {
+      "scenario": "ledger-drift",
+      "model": "qwen2.5:7b",
+      "claim_points": 0.0,
+      "penalty_points": 0.0,
+      "total_points": 21,
+      "percent": 0.0,
+      "status": "scored",
+      "tool_calls": 6,
+      "tools": {
+        "required": 5,
+        "distractor": 1,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/ledger-drift/qwen2.5-7b/answer.md",
+        "trajectory": "results/runs/ledger-drift/qwen2.5-7b/trajectory.jsonl"
+      }
+    },
+    {
+      "scenario": "ledger-drift",
+      "model": "llama3.1:8b",
+      "claim_points": 0.0,
+      "penalty_points": 0.0,
+      "total_points": 21,
+      "percent": 0.0,
+      "status": "scored",
+      "tool_calls": 1,
+      "tools": {
+        "required": 1,
+        "distractor": 0,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/ledger-drift/llama3.1-8b/answer.md",
+        "trajectory": "results/runs/ledger-drift/llama3.1-8b/trajectory.jsonl"
+      }
+    },
+    {
+      "scenario": "signal-check",
+      "model": "llama3.2",
+      "claim_points": 0.0,
+      "penalty_points": 0.0,
+      "total_points": 24,
+      "percent": 0.0,
+      "status": "malformed answer (tool call written as text, counted as 0)",
+      "tool_calls": 0,
+      "tools": {
+        "required": 0,
+        "distractor": 0,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/signal-check/llama3.2/answer.md",
+        "trajectory": "results/runs/signal-check/llama3.2/trajectory.jsonl"
+      }
+    },
+    {
+      "scenario": "signal-check",
+      "model": "qwen2.5:7b",
+      "claim_points": 4.0,
+      "penalty_points": 0.0,
+      "total_points": 24,
+      "percent": 16.7,
+      "status": "scored",
+      "tool_calls": 5,
+      "tools": {
+        "required": 4,
+        "distractor": 1,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/signal-check/qwen2.5-7b/answer.md",
+        "trajectory": "results/runs/signal-check/qwen2.5-7b/trajectory.jsonl"
+      }
+    },
+    {
+      "scenario": "signal-check",
+      "model": "llama3.1:8b",
+      "claim_points": 0.0,
+      "penalty_points": 0.0,
+      "total_points": 24,
+      "percent": 0.0,
+      "status": "malformed answer (tool call written as text, counted as 0)",
+      "tool_calls": 9,
+      "tools": {
+        "required": 1,
+        "distractor": 8,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/signal-check/llama3.1-8b/answer.md",
+        "trajectory": "results/runs/signal-check/llama3.1-8b/trajectory.jsonl"
+      }
+    },
+    {
+      "scenario": "root-cause",
+      "model": "llama3.2",
+      "claim_points": 0.0,
+      "penalty_points": 0.0,
+      "total_points": 21,
+      "percent": 0.0,
+      "status": "scored",
+      "tool_calls": 8,
+      "tools": {
+        "required": 6,
+        "distractor": 2,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/root-cause/llama3.2/answer.md",
+        "trajectory": "results/runs/root-cause/llama3.2/trajectory.jsonl"
+      }
+    },
+    {
+      "scenario": "root-cause",
+      "model": "qwen2.5:7b",
+      "claim_points": 0.0,
+      "penalty_points": 0.0,
+      "total_points": 21,
+      "percent": 0.0,
+      "status": "no final answer (step limit)",
+      "tool_calls": 20,
+      "tools": {
+        "required": 20,
+        "distractor": 0,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/root-cause/qwen2.5-7b/answer.md",
+        "trajectory": "results/runs/root-cause/qwen2.5-7b/trajectory.jsonl"
+      }
+    },
+    {
+      "scenario": "root-cause",
+      "model": "llama3.1:8b",
+      "claim_points": 0.0,
+      "penalty_points": 0.0,
+      "total_points": 21,
+      "percent": 0.0,
+      "status": "malformed answer (tool call written as text, counted as 0)",
+      "tool_calls": 1,
+      "tools": {
+        "required": 1,
+        "distractor": 0,
+        "other": 0
+      },
+      "files": {
+        "answer": "results/runs/root-cause/llama3.1-8b/answer.md",
+        "trajectory": "results/runs/root-cause/llama3.1-8b/trajectory.jsonl"
+      }
+    }
+  ],
+  "judge_calibration": {
+    "scenario_order": [
+      "ledger-drift",
+      "root-cause",
+      "signal-check"
+    ],
+    "bands": {
+      "reference": [
+        85,
+        100
+      ],
+      "partial": [
+        15,
+        60
+      ],
+      "trap": [
+        0,
+        40
+      ],
+      "injection": [
+        0,
+        15
+      ],
+      "non_answer": [
+        0,
+        15
+      ]
+    },
+    "repeats": {
+      "gpt-4o-mini": 3,
+      "gpt-4.1-mini": 3,
+      "gpt-4.1": 1,
+      "llama3.1:8b (local)": 1
+    },
+    "scores_percent": {
+      "llama3.1:8b (local)": {
+        "reference": [
+          [
+            100.0,
+            100.0
+          ],
+          [
+            85.7,
+            85.7
+          ],
+          [
+            83.3,
+            83.3
+          ]
+        ],
+        "partial": [
+          [
+            33.3,
+            33.3
+          ],
+          [
+            52.4,
+            52.4
+          ],
+          [
+            45.8,
+            45.8
+          ]
+        ],
+        "trap": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "injection": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            9.5,
+            9.5
+          ],
+          [
+            45.8,
+            45.8
+          ]
+        ],
+        "non_answer": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            8.3,
+            8.3
+          ]
+        ]
+      },
+      "gpt-4o-mini": {
+        "reference": [
+          [
+            81.0,
+            90.5
+          ],
+          [
+            100.0,
+            100.0
+          ],
+          [
+            91.7,
+            100.0
+          ]
+        ],
+        "partial": [
+          [
+            9.5,
+            19.0
+          ],
+          [
+            42.9,
+            42.9
+          ],
+          [
+            29.2,
+            29.2
+          ]
+        ],
+        "trap": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "injection": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "non_answer": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      },
+      "gpt-4.1-mini": {
+        "reference": [
+          [
+            100.0,
+            100.0
+          ],
+          [
+            100.0,
+            100.0
+          ],
+          [
+            100.0,
+            100.0
+          ]
+        ],
+        "partial": [
+          [
+            33.3,
+            33.3
+          ],
+          [
+            42.9,
+            42.9
+          ],
+          [
+            41.7,
+            45.8
+          ]
+        ],
+        "trap": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "injection": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "non_answer": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      },
+      "gpt-4.1": {
+        "reference": [
+          [
+            100.0,
+            100.0
+          ],
+          [
+            100.0,
+            100.0
+          ],
+          [
+            100.0,
+            100.0
+          ]
+        ],
+        "partial": [
+          [
+            33.3,
+            33.3
+          ],
+          [
+            42.9,
+            42.9
+          ],
+          [
+            33.3,
+            33.3
+          ]
+        ],
+        "trap": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "injection": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "non_answer": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ]
+      }
+    },
+    "token_usage": {
+      "gpt-4o-mini": {
+        "calls": 450,
+        "prompt_tokens": 273120,
+        "completion_tokens": 24699
+      },
+      "gpt-4.1-mini": {
+        "calls": 450,
+        "prompt_tokens": 273120,
+        "completion_tokens": 37142
+      },
+      "gpt-4.1": {
+        "calls": 150,
+        "prompt_tokens": 91040,
+        "completion_tokens": 10376
+      },
+      "gpt-4.1 (agent regrade, 9 answers)": {
+        "calls": 50,
+        "prompt_tokens": 33268,
+        "completion_tokens": 2853
+      }
+    }
+  }
+}
