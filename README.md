@@ -9,7 +9,8 @@ Each scenario gives the agent a business question, a sandboxed Docker container,
 ![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-black)
 ![Ollama](https://img.shields.io/badge/Ollama-local%20models-000000?logo=ollama&logoColor=white)
-![Llama 3.2](https://img.shields.io/badge/Llama%203.2-supported-0467DF?logo=meta&logoColor=white)
+![Agent](https://img.shields.io/badge/default%20agent-Qwen%202.5%207B-6D28D9)
+![Judge](https://img.shields.io/badge/default%20judge-Llama%203.1%208B-0467DF?logo=meta&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-sandboxed%2C%20no%20network-2496ED?logo=docker&logoColor=white)
 ![Scenarios](https://img.shields.io/badge/scenarios-3-informational)
 ![Grading](https://img.shields.io/badge/grading-claim--based%20LLM%20judge-blueviolet)
@@ -26,12 +27,13 @@ Each scenario gives the agent a business question, a sandboxed Docker container,
 2. [Scenarios](#scenarios)
 3. [How it works](#how-it-works)
 4. [Quickstart](#quickstart)
-5. [Design rules](#design-rules)
-6. [Implementation details](#implementation-details)
-7. [Repository layout](#repository-layout)
-8. [Testing](#testing)
-9. [Known limitations](#known-limitations)
-10. [License](#license)
+5. [Local model results](#local-model-results)
+6. [Design rules](#design-rules)
+7. [Implementation details](#implementation-details)
+8. [Repository layout](#repository-layout)
+9. [Testing](#testing)
+10. [Known limitations](#known-limitations)
+11. [License](#license)
 
 ## Why this exists
 
@@ -55,7 +57,7 @@ Each scenario here has several such problems, and each problem has a different c
 2. The agent calls MCP tools. Each tool runs inside a Docker container through `docker exec`.
 3. The container has no network access, and the evidence files are mounted read-only.
 4. The agent writes a final answer.
-5. `tools/grade.py` sends each claim in `claims.yaml` and the answer to a judge model. The judge gives each claim a score from 0 to 3. The scores are combined into a weighted total.
+5. `tools/grade.py` sends each claim in `claims.yaml` and the answer to a judge model. The judge gives each claim a score from 0 to 3. The judge also checks a short list of wrong conclusions from the same file (penalties), and points are subtracted for each one the answer endorses. The result is a weighted total.
 
 ## Quickstart
 
@@ -82,14 +84,15 @@ make down SCENARIO=ledger-drift
 
 ### Run a local model
 
-[`tools/run_agent.py`](tools/run_agent.py) runs any [Ollama](https://ollama.com) model on a scenario. It connects to the scenario's MCP tools inside the sandbox, repeats tool calls until the model gives a final answer, and saves that answer to a file. It also saves every tool call (name, arguments, output size, whether the output was cut) to `<out>.trajectory.jsonl`.
+[`tools/run_agent.py`](tools/run_agent.py) runs any [Ollama](https://ollama.com) model on a scenario. It connects to the scenario's MCP tools inside the sandbox, repeats tool calls until the model gives a final answer, and saves that answer to a file. It also saves every tool call (name, arguments, the exact text the model saw, and whether it was cut) to `<out>.trajectory.jsonl`.
 
 ```bash
+ollama pull qwen2.5:7b
 make up SCENARIO=ledger-drift
-python tools/run_agent.py --scenario ledger-drift --model llama3.2 --out answer.md
+python tools/run_agent.py --scenario ledger-drift --model qwen2.5:7b --out answer.md
 ```
 
-Tool results longer than 12,000 characters are cut, and the cut is marked in the text the model sees. Change this with `--max-tool-output`, and the context size with `--num-ctx` (default 32768). You can also use any other MCP-capable agent. Start each server listed in a scenario's `mcp-servers.json` with `docker exec -i msmb-<scenario> <command> <args>` as its stdio transport, and give the agent `brief.md` as the task.
+Tool results longer than 12,000 characters are cut, and the cut is marked in the text the model sees. At most 8 tool calls run per turn, and the model is told when it sent more. Change this with `--max-tool-output`, and the context size with `--num-ctx` (default 32768). You can also use any other MCP-capable agent. Start each server listed in a scenario's `mcp-servers.json` with `docker exec -i msmb-<scenario> <command> <args>` as its stdio transport, and give the agent `brief.md` as the task.
 
 ### Grade an answer
 
@@ -98,10 +101,44 @@ Tool results longer than 12,000 characters are cut, and the cut is marked in the
 python tools/grade.py --claims scenarios/ledger-drift/evaluation/claims.yaml \
   --answer answer.md --dry-run
 
-# Score the answer with any OpenAI-compatible judge endpoint
-export MSMB_API_BASE=... MSMB_API_KEY=... MSMB_MODEL=...
+# Score the answer with any OpenAI-compatible judge endpoint.
+# Local example with Ollama (ollama pull llama3.1:8b first):
+export MSMB_API_BASE=http://localhost:11434/v1 MSMB_API_KEY=ollama MSMB_MODEL=llama3.1:8b
 python tools/grade.py --claims scenarios/ledger-drift/evaluation/claims.yaml --answer answer.md
 ```
+
+### Check that a judge is usable
+
+Before trusting scores, run the judge on three answers of known quality for each scenario: the reference answer (must score at least 85%), a confident answer that endorses the wrong explanations (at most 40%), and an answer that found nothing (at most 15%). The command exits with an error if the judge cannot tell them apart.
+
+```bash
+python tools/calibrate.py            # all scenarios, uses the same MSMB_* variables
+python tools/calibrate.py --dry-run  # only checks that the files exist
+```
+
+## Local model results
+
+I tried three open-source models through Ollama as the agent, and the same three as the judge. The numbers come from one run per model and scenario at temperature 0, so they are indicative only. The raw data is in [`results/local-model-trial.json`](results/local-model-trial.json), and `python tools/plot_results.py` redraws the charts.
+
+### Judge: only Llama 3.1 8B passes calibration
+
+![Judge calibration by model](docs/images/judge-calibration.svg)
+
+`llama3.1:8b` separated the correct reference answer (100%), a confident wrong answer (0%) and an answer that found nothing (0%) in all three scenarios. `qwen2.5:7b` under-scored the correct answer (63% on average, 38% on signal-check). `llama3.2` over-scored the wrong answer (42% on average, 52% on ledger-drift). All later scores here use `llama3.1:8b` as the judge.
+
+### Agent: Qwen 2.5 7B is the best of the three
+
+![Agent scores by model and scenario](docs/images/agent-scores.svg)
+
+| Model | What happened |
+| --- | --- |
+| `qwen2.5:7b` | Best result: 58% on signal-check. On ledger-drift it read the ledger and fee schedule but stopped with a plan instead of using code to open the SQLite file (10%). On root-cause it used all 20 allowed steps with no final answer (0%). |
+| `llama3.1:8b` | Mostly stopped after one tool call. On signal-check, 8 of its 9 calls were to unneeded tools. |
+| `llama3.2` | Often wrote tool calls as plain text instead of calling the tool. On signal-check its whole "answer" was malformed tool-call text, counted as 0. |
+
+![Tool calls by category and model](docs/images/tool-use.svg)
+
+None of these small models solves a scenario end to end. The benchmark does separate them, and the default agent is the one that used tools most sensibly. Stronger models should be run through the same commands to get a meaningful ceiling.
 
 ## Design rules
 
@@ -110,7 +147,8 @@ python tools/grade.py --claims scenarios/ledger-drift/evaluation/claims.yaml --a
 3. **Every number in a reference answer can be derived from the evidence.** If the evidence cannot explain something, the reference answer says it is unexplained and recommends an investigation.
 4. **Every wrong explanation can be disproved with the evidence.** For example, a diff shows that a deploy did not touch the failing code, a hardware table shows that two runs used different machines, or an empty support queue shows that no customer reported an outage.
 5. **Trust is assigned per field, not per system.** One source decides whether a record exists. Another decides how it is priced or categorised. The evidence states these rules.
-6. **Each claim is a fact that can be checked.** For example: "States the net total as $24,460.80 within $1". This keeps grading easy to audit and allows partial credit.
+6. **Wrong conclusions cost points.** Each scenario lists the wrong explanations the evidence disproves, such as blaming the deploy. An answer that endorses one loses points, so a confident wrong answer cannot score well just by covering many topics.
+7. **Each claim is a fact that can be checked.** For example: "States the net total as $24,460.80 within $1". This keeps grading easy to audit and allows partial credit.
 
 <details>
 <summary><b>Scenario details</b></summary>
@@ -140,11 +178,11 @@ The configuration history is a real git repository. It is stored as a bundle fil
 
 ## Implementation details
 
-- **Isolation.** Containers run with `network_mode: none`, all Linux capabilities dropped, `no-new-privileges`, and limits of 512 processes and 2 GB of memory. `make up` removes any old container first, so one run never sees another run's files. A healthcheck makes `up --wait` return only after setup (virtual environment, config repository clone) has finished. The reference answers are in this public repository, so an agent with network access could download them. The MCP servers are installed into the image at build time at pinned versions and started with `docker exec -i`. The `/workspace/...` paths in `mcp-servers.json` are paths inside the container.
+- **Isolation.** Containers run with `network_mode: none`, as an unprivileged user (uid 10001), with a read-only root filesystem. The only writable places are small in-memory `/tmp`, `/home/agent` and `/workspace/scratch` mounts. All Linux capabilities are dropped, `no-new-privileges` is set, and there are limits of 512 processes and 2 GB of memory. `make up` removes any old container first, so one run never sees another run's files. A healthcheck makes `up --wait` return only after setup (virtual environment, config repository clone) has finished. The reference answers are in this public repository, so an agent with network access could download them. The MCP servers are installed into the image at build time at pinned versions and started with `docker exec -i`. The `/workspace/...` paths in `mcp-servers.json` are paths inside the container.
 - **Mounted evidence.** One image is used for all scenarios. Each scenario mounts its own `evidence/` folder read-only, so changing a fixture does not need an image rebuild.
 - **Generators.** Each scenario has a `solution/generate_evidence.py` script that produces its evidence deterministically. It accepts `--out DIR`. The script is kept in `solution/`, away from the evidence, so the agent cannot read it. CI regenerates the evidence and fails if it differs from the committed files.
 - **Git fixture.** The `root-cause` repository is stored as `relay-config.bundle`. A git repository placed inside this repository would be saved as an empty submodule pointer.
-- **Grading.** The candidate answer is wrapped in `<candidate_answer>` tags and treated as data. The judge must end its reply with a line like `{"score": 2}`. Any other reply raises an error instead of being scored as 0. With `--dry-run`, the script validates the files without calling a model.
+- **Grading.** Claims add points, and penalties for endorsed wrong conclusions subtract them (total floored at 0). The candidate answer is wrapped in `<candidate_answer>` tags and treated as data. The judge must end its reply with a line like `{"score": 2}`. Any other reply raises an error instead of being scored as 0. With `--dry-run`, the script validates the files without calling a model.
 
 ## Repository layout
 
@@ -152,19 +190,22 @@ The configuration history is a real git repository. It is stored as a bundle fil
 docker/base.Dockerfile      pinned sandbox image with the MCP servers installed
 tools/mcp_probe.py          list or call any declared MCP server inside the container
 tools/run_agent.py          run an Ollama model on a scenario using its MCP tools
-tools/grade.py              score an answer against claims (or validate with --dry-run)
+tools/plot_results.py       redraw the result charts from results/local-model-trial.json
+tools/grade.py              score an answer against claims and penalties (or validate with --dry-run)
+tools/calibrate.py          check a judge model against known-good and known-bad answers
 scenarios/<name>/
   brief.md                  the task given to the agent
   mcp-servers.json          tools the agent may use, plus unneeded tools
   environment/              docker-compose.yml and the read-only evidence
   solution/                 generate_evidence.py and REFERENCE_ANSWER.md (never mounted)
-  evaluation/claims.yaml    the facts an answer is scored on
+  evaluation/claims.yaml    the facts an answer is scored on, and the wrong conclusions it is penalised for
+  evaluation/calibration/   a trap answer and a non-answer used to calibrate the judge
 ```
 
 ## Testing
 
 ```bash
-pytest              # file structure, score parsing, and evidence regeneration
+pytest              # file structure, scoring and penalties, score parsing, evidence regeneration
 pytest -m docker    # builds the image, starts every declared MCP server in its container, checks there is no network
 ```
 
@@ -173,8 +214,8 @@ CI runs both commands on every push. The Docker test fails if a policy file name
 ## Known limitations
 
 - The scenarios are synthetic and small. They test reasoning over conflicting evidence, not scale. A strong model may get full marks on some claims, so the per-claim scores are more useful than the total.
-- Scoring depends on the judge model. Claims are written as explicit facts to reduce variation. Small local models are poor judges: a 3B model gave partial credit to an answer that found nothing. Use a strong judge, and compare scores only between runs that used the same judge.
-- The runner supports Ollama only. It uses one run per scenario at temperature 0, so there is no variance estimate, and the repository has no results table for any model yet. Tool calls are recorded but not scored.
+- Scoring depends on the judge model. Claims are written as explicit facts to reduce variation. Judges differ a lot: of the three local models tried, only `llama3.1:8b` passed `tools/calibrate.py`. Run the calibration for any judge you use, and compare scores only between runs that used the same judge.
+- The runner supports Ollama only. The results above are single runs at temperature 0, so there is no variance estimate, and no frontier model has been tested. Tool calls are recorded but not scored.
 - The `code-executor` tool can run any code inside the container. The container is isolated from the network and the host, but the code can still read the evidence it is meant to analyze.
 
 ## License

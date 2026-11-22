@@ -40,7 +40,7 @@
     <text x="156" y="262" fill="#0b1220">Ollama runner</text>
     <rect x="62" y="284" width="186" height="34" rx="17" fill="#2563eb"/>
     <path d="M76,301 q4,-8 8,0 q4,8 8,0" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
-    <text x="170" y="306" fill="#ffffff">Llama 3.2 supported</text>
+    <text x="170" y="306" fill="#ffffff">Qwen 2.5 7B default</text>
   </g>
   <text x="155" y="352" text-anchor="middle" font-size="12" fill="#a5b4fc">reads brief.md</text>
   <text x="155" y="372" text-anchor="middle" font-size="12" fill="#a5b4fc">chooses tools, writes answer</text>
