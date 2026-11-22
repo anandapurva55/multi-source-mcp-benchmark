@@ -56,3 +56,59 @@ def test_container_has_no_network(running: str):
     result = subprocess.run(["docker", "exec", f"msmb-{running}", "python", "-c", probe],
                             check=False, capture_output=True, text=True)
     assert result.returncode != 0, "container can reach the internet"
+
+
+def _sh(container: str, command: str) -> subprocess.CompletedProcess:
+    return subprocess.run(["docker", "exec", container, "bash", "-c", command],
+                          check=False, capture_output=True, text=True)
+
+
+async def _execute_code(config: Path, container: str, code: str) -> str:
+    params = load_server(str(config), "code-executor", container)
+    async with stdio_client(params) as (r, w), ClientSession(r, w) as session:
+        await session.initialize()
+        result = await session.call_tool("execute_code", {"code": code})
+        assert not result.is_error, result
+        return "\n".join(c.text for c in result.content if hasattr(c, "text"))
+
+
+def test_agent_runs_as_an_unprivileged_user(running: str):
+    assert _sh(f"msmb-{running}", "id -u").stdout.strip() == "10001"
+
+
+def test_only_scratch_is_writable(running: str):
+    c = f"msmb-{running}"
+    assert _sh(c, "touch /etc/x").returncode != 0, "root filesystem is writable"
+    assert _sh(c, "touch /workspace/evidence/x").returncode != 0, "evidence is writable"
+    assert _sh(c, "touch /workspace/scratch/ok").returncode == 0, "scratch is not writable"
+
+
+# One check per scenario that exercises what the agent really does as the unprivileged user:
+# read the evidence with code, and (root-cause) read the cloned git history.
+SQLITE_CODE = """
+import sqlite3
+db = sqlite3.connect('file:/workspace/evidence/settlement_export.sqlite?mode=ro', uri=True)
+print(db.execute('select count(*) from disbursements').fetchone()[0])
+"""
+CSV_CODE = """
+import csv
+rows = list(csv.DictReader(open('/workspace/evidence/run_1_baseline_steadystate.csv')))
+print(len(rows))
+"""
+GIT_CODE = """
+import subprocess
+cmd = ['git', '-C', '/workspace/relay-config', 'rev-list', '--count', 'HEAD']
+print(subprocess.run(cmd, capture_output=True, text=True).stdout.strip())
+"""
+CODE_CHECKS = {
+    "ledger-drift": (SQLITE_CODE, "25"),
+    "signal-check": (CSV_CODE, "30"),
+    "root-cause": (GIT_CODE, "5"),
+}
+
+
+def test_code_executor_reads_the_evidence_as_the_unprivileged_user(running: str):
+    code, expected = CODE_CHECKS[running]
+    config = REPO_ROOT / "scenarios" / running / "mcp-servers.json"
+    out = asyncio.run(_execute_code(config, f"msmb-{running}", code))
+    assert expected in out, out
