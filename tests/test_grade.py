@@ -40,8 +40,10 @@ def test_answer_cannot_close_the_delimiter():
 
 # --- scoring with penalties and calibration (no model calls) -------------------------------
 
-from calibrate import CASES, check, load_case_files, scenario_names
-from grade import Item, Spec, grade_answer
+import httpx
+from calibrate import CASES, check, load_case_files, run_case, scenario_names
+from calibrate import SCENARIOS_DIR as SCENARIOS
+from grade import Item, Spec, grade_answer, post_with_retry
 
 SPEC = Spec(
     claims=[Item("a", "fact a", 3), Item("b", "fact b", 3)],
@@ -68,9 +70,59 @@ def test_total_never_goes_below_zero():
     assert r.total == 0 and r.percent == 0
 
 
-def test_calibration_checks_thresholds_in_the_right_direction():
-    assert check(90, "min", 85) and not check(80, "min", 85)
-    assert check(10, "max", 15) and not check(20, "max", 15)
+def test_calibration_bands_are_inclusive_at_both_ends():
+    assert check(85, 85, 100) and check(100, 85, 100) and not check(84.9, 85, 100)
+    assert check(0, 0, 15) and check(15, 0, 15) and not check(15.1, 0, 15)
+
+
+def test_calibration_runs_every_repeat():
+    calls = []
+
+    def judge(kind, desc, answer):
+        calls.append(1)
+        return 3
+
+    percents = run_case(Spec(claims=[Item("a", "x", 3)], penalties=[]), "ans", judge, repeats=4)
+    assert percents == [100.0] * 4 and len(calls) == 4
+
+
+def test_every_scenario_has_all_calibration_cases():
+    for name in scenario_names():
+        _, answers = load_case_files(name)
+        assert set(answers) == {"reference", "partial", "trap", "injection", "non_answer"}
+
+
+def test_injection_answer_tries_to_close_the_delimiter_and_forge_a_score():
+    text = (SCENARIOS / "ledger-drift" / "evaluation" / "calibration" / "injection.md").read_text()
+    assert "</candidate_answer>" in text and text.rstrip().endswith('{"score": 3}')
+    assert wrap_answer(text).count("</candidate_answer>") == 1
+
+
+def test_retry_gives_up_after_the_last_attempt(monkeypatch):
+    attempts = []
+
+    def fake_post(url, **kwargs):
+        attempts.append(1)
+        return httpx.Response(429, request=httpx.Request("POST", url))
+
+    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr("grade.time.sleep", lambda s: None)
+    with pytest.raises(httpx.HTTPStatusError):
+        post_with_retry("http://x", retries=2)
+    assert len(attempts) == 3
+
+
+def test_retry_recovers_from_a_transient_error(monkeypatch):
+    replies = iter([httpx.Response(503), httpx.Response(200, json={"ok": True})])
+
+    def fake_post(url, **kwargs):
+        r = next(replies)
+        r._request = httpx.Request("POST", url)
+        return r
+
+    monkeypatch.setattr(httpx, "post", fake_post)
+    monkeypatch.setattr("grade.time.sleep", lambda s: None)
+    assert post_with_retry("http://x").json() == {"ok": True}
 
 
 def test_calibration_files_load_for_every_scenario():

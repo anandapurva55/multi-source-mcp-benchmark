@@ -88,5 +88,5 @@ def test_every_scenario_defines_penalties(scenario_dir: Path):
 
 
 def test_calibration_files_are_present(scenario_dir: Path):
-    for name in ("trap.md", "non_answer.md"):
+    for name in ("trap.md", "partial.md", "injection.md", "non_answer.md"):
         assert (scenario_dir / "evaluation" / "calibration" / name).read_text().strip()
