@@ -20,6 +20,19 @@ Each scenario gives the agent a business question, a sandboxed Docker container,
 | :---: | :---: | :---: | :---: | :---: |
 | **3** | **5 to 8** | **7 to 8** | **4** (filesystem, code execution, git, calculator) | **none** |
 
+## Table of contents
+
+1. [Why this exists](#why-this-exists)
+2. [Scenarios](#scenarios)
+3. [How it works](#how-it-works)
+4. [Quickstart](#quickstart)
+5. [Design rules](#design-rules)
+6. [Implementation details](#implementation-details)
+7. [Repository layout](#repository-layout)
+8. [Testing](#testing)
+9. [Known limitations](#known-limitations)
+10. [License](#license)
+
 ## Why this exists
 
 An agent usually looks good when it gets one clean source and a clear question, because there is nothing to compare. Real tasks are harder. A ledger and a payment processor report different totals. A memo quotes a test run that was never a fair comparison. The most obvious cause of an outage is not the real cause.
