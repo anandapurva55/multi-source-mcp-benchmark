@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Judge calibration by model</title>
+<rect width="900" height="500" rx="18" fill="#0b1220"/>
+<text x="40" y="48" font-size="22" fill="#f1f5f9" text-anchor="start" font-weight="700">Which model is fit to be the judge?</text>
+<text x="40" y="72" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="400">Average score each judge gives three answers of known quality. Short lines mark the required limit.</text>
+<rect x="40" y="89" width="14" height="14" rx="3" fill="#34d399"/>
+<text x="62" y="100" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="400">correct reference answer</text>
+<rect x="252.8" y="89" width="14" height="14" rx="3" fill="#fbbf24"/>
+<text x="274.8" y="100" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="400">confident wrong answer</text>
+<rect x="451.20000000000005" y="89" width="14" height="14" rx="3" fill="#94a3b8"/>
+<text x="473.20000000000005" y="100" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="400">answer that found nothing</text>
+<line x1="80" y1="390.0" x2="860" y2="390.0" stroke="#243049"/>
+<text x="70" y="394.0" font-size="12" fill="#94a3b8" text-anchor="end" font-weight="400">0%</text>
+<line x1="80" y1="322.5" x2="860" y2="322.5" stroke="#243049"/>
+<text x="70" y="326.5" font-size="12" fill="#94a3b8" text-anchor="end" font-weight="400">25%</text>
+<line x1="80" y1="255.0" x2="860" y2="255.0" stroke="#243049"/>
+<text x="70" y="259.0" font-size="12" fill="#94a3b8" text-anchor="end" font-weight="400">50%</text>
+<line x1="80" y1="187.5" x2="860" y2="187.5" stroke="#243049"/>
+<text x="70" y="191.5" font-size="12" fill="#94a3b8" text-anchor="end" font-weight="400">75%</text>
+<line x1="80" y1="120.0" x2="860" y2="120.0" stroke="#243049"/>
+<text x="70" y="124.0" font-size="12" fill="#94a3b8" text-anchor="end" font-weight="400">100%</text>
+<rect x="120.0" y="188.49" width="52" height="201.51" rx="5" fill="#34d399" opacity="0.45"/>
+<text x="146.0" y="180.49" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">75%</text>
+<line x1="115.0" y1="160.5" x2="177.0" y2="160.5" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<rect x="184.0" y="277.95" width="52" height="112.05" rx="5" fill="#fbbf24" opacity="0.45"/>
+<text x="210.0" y="269.95" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">42%</text>
+<line x1="179.0" y1="282.0" x2="241.0" y2="282.0" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<rect x="248.0" y="373.35" width="52" height="16.65" rx="5" fill="#94a3b8" opacity="1"/>
+<text x="274.0" y="365.35" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">6%</text>
+<line x1="243.0" y1="349.5" x2="305.0" y2="349.5" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="210.0" y="412" font-size="14" fill="#f1f5f9" text-anchor="middle" font-weight="600">llama3.2</text>
+<text x="210.0" y="432" font-size="12" fill="#94a3b8" text-anchor="middle" font-weight="600">fails calibration</text>
+<rect x="380.0" y="219.09" width="52" height="170.91" rx="5" fill="#34d399" opacity="0.45"/>
+<text x="406.0" y="211.09" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">63%</text>
+<line x1="375.0" y1="160.5" x2="437.0" y2="160.5" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<rect x="444.0" y="388" width="52" height="2" rx="5" fill="#fbbf24" opacity="1"/>
+<text x="470.0" y="380" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">0%</text>
+<line x1="439.0" y1="282.0" x2="501.0" y2="282.0" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<rect x="508.0" y="388" width="52" height="2" rx="5" fill="#94a3b8" opacity="1"/>
+<text x="534.0" y="380" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">0%</text>
+<line x1="503.0" y1="349.5" x2="565.0" y2="349.5" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="470.0" y="412" font-size="14" fill="#f1f5f9" text-anchor="middle" font-weight="600">qwen2.5:7b</text>
+<text x="470.0" y="432" font-size="12" fill="#94a3b8" text-anchor="middle" font-weight="600">fails calibration</text>
+<rect x="640.0" y="120.0" width="52" height="270.0" rx="5" fill="#34d399" opacity="1"/>
+<text x="666.0" y="112.0" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">100%</text>
+<line x1="635.0" y1="160.5" x2="697.0" y2="160.5" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<rect x="704.0" y="388" width="52" height="2" rx="5" fill="#fbbf24" opacity="1"/>
+<text x="730.0" y="380" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">0%</text>
+<line x1="699.0" y1="282.0" x2="761.0" y2="282.0" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<rect x="768.0" y="388" width="52" height="2" rx="5" fill="#94a3b8" opacity="1"/>
+<text x="794.0" y="380" font-size="13" fill="#f1f5f9" text-anchor="middle" font-weight="600">0%</text>
+<line x1="763.0" y1="349.5" x2="825.0" y2="349.5" stroke="#f1f5f9" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="730.0" y="412" font-size="14" fill="#f1f5f9" text-anchor="middle" font-weight="600">llama3.1:8b</text>
+<text x="730.0" y="432" font-size="12" fill="#34d399" text-anchor="middle" font-weight="600">passes calibration</text>
+<text x="40" y="482" font-size="12" fill="#94a3b8" text-anchor="start" font-weight="400">Limits: reference at least 85%, wrong answer at most 40%, non-answer at most 15%. Faded bars missed their limit.</text>
+</svg>

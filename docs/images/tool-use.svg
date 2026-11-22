@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 370" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Tool calls by category and model</title>
+<rect width="900" height="370" rx="18" fill="#0b1220"/>
+<text x="40" y="48" font-size="22" fill="#f1f5f9" text-anchor="start" font-weight="700">Which tools did each agent call?</text>
+<text x="40" y="72" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="400">All tool calls across the three scenarios. The unneeded tools are the distractors in each scenario's tool policy.</text>
+<rect x="40" y="89" width="14" height="14" rx="3" fill="#2dd4bf"/>
+<text x="62" y="100" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="400">required tool</text>
+<rect x="173.60000000000002" y="89" width="14" height="14" rx="3" fill="#fbbf24"/>
+<text x="195.60000000000002" y="100" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="400">unneeded tool</text>
+<rect x="307.20000000000005" y="89" width="14" height="14" rx="3" fill="#94a3b8"/>
+<text x="329.20000000000005" y="100" font-size="13" fill="#94a3b8" text-anchor="start" font-weight="400">other</text>
+<text x="174" y="164" font-size="14" fill="#f1f5f9" text-anchor="end" font-weight="600">llama3.2</text>
+<rect x="190" y="140" width="160.0" height="38" rx="5" fill="#2dd4bf"/>
+<text x="270.0" y="164" font-size="14" fill="#0b1220" text-anchor="middle" font-weight="700">8</text>
+<rect x="352.0" y="140" width="60.0" height="38" rx="5" fill="#fbbf24"/>
+<text x="382.0" y="164" font-size="14" fill="#0b1220" text-anchor="middle" font-weight="700">3</text>
+<text x="422.0" y="164" font-size="12" fill="#94a3b8" text-anchor="start" font-weight="400">11 calls</text>
+<text x="174" y="226" font-size="14" fill="#f1f5f9" text-anchor="end" font-weight="600">qwen2.5:7b</text>
+<rect x="190" y="202" width="580.0" height="38" rx="5" fill="#2dd4bf"/>
+<text x="480.0" y="226" font-size="14" fill="#0b1220" text-anchor="middle" font-weight="700">29</text>
+<rect x="772.0" y="202" width="40.0" height="38" rx="5" fill="#fbbf24"/>
+<text x="792.0" y="226" font-size="14" fill="#0b1220" text-anchor="middle" font-weight="700">2</text>
+<text x="822.0" y="226" font-size="12" fill="#94a3b8" text-anchor="start" font-weight="400">31 calls</text>
+<text x="174" y="288" font-size="14" fill="#f1f5f9" text-anchor="end" font-weight="600">llama3.1:8b</text>
+<rect x="190" y="264" width="60.0" height="38" rx="5" fill="#2dd4bf"/>
+<text x="220.0" y="288" font-size="14" fill="#0b1220" text-anchor="middle" font-weight="700">3</text>
+<rect x="252.0" y="264" width="160.0" height="38" rx="5" fill="#fbbf24"/>
+<text x="332.0" y="288" font-size="14" fill="#0b1220" text-anchor="middle" font-weight="700">8</text>
+<text x="422.0" y="288" font-size="12" fill="#94a3b8" text-anchor="start" font-weight="400">11 calls</text>
+<text x="40" y="352" font-size="12" fill="#94a3b8" text-anchor="start" font-weight="400">Tool use is recorded in each run's trajectory file. It is not scored automatically.</text>
+</svg>
