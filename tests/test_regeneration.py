@@ -1,5 +1,7 @@
 """Every scenario's committed evidence must be exactly what its generator produces."""
 import filecmp
+import os
+import re
 import sqlite3
 import subprocess
 import sys
@@ -46,3 +48,34 @@ def test_evidence_matches_generator_output(name: str, tmp_path: Path):
             assert _bundle_state(new) == _bundle_state(old), f"{fname} refs differ"
         else:
             assert filecmp.cmp(new, old, shallow=False), f"{fname} differs from generator output"
+
+
+def test_root_cause_evidence_ignores_developer_git_config(tmp_path: Path):
+    """A global commit.gpgsign (or similar) must not change commit ids or the logs."""
+    cfg = tmp_path / "gitconfig"
+    cfg.write_text("[commit]\n\tgpgsign = true\n[gpg]\n\tprogram = /nonexistent\n")
+    out = tmp_path / "out"
+    scenario = SCENARIOS_DIR / "root-cause"
+    subprocess.run(
+        [sys.executable, str(scenario / "solution" / "generate_evidence.py"), "--out", str(out)],
+        capture_output=True, text=True, check=True,
+        env={**os.environ, "GIT_CONFIG_GLOBAL": str(cfg)},
+    )
+    committed = scenario / "environment" / "evidence"
+    assert filecmp.cmp(out / "app_logs.txt", committed / "app_logs.txt", shallow=False)
+    assert _bundle_state(out / "relay-config.bundle") == _bundle_state(committed / "relay-config.bundle")
+
+
+def test_root_cause_log_commit_ids_exist_in_the_bundle(tmp_path: Path):
+    evidence = SCENARIOS_DIR / "root-cause" / "environment" / "evidence"
+    subprocess.run(["git", "clone", "-q", str(evidence / "relay-config.bundle"), str(tmp_path / "r")],
+                   check=True, capture_output=True)
+    shas = subprocess.run(["git", "-C", str(tmp_path / "r"), "log", "--format=%h", "--abbrev=7"],
+                          check=True, capture_output=True, text=True).stdout.split()
+    logged = re.findall(r"config-sync applied commit=(\w+)", (evidence / "app_logs.txt").read_text())
+    assert logged and all(c in shas for c in logged), (logged, shas)
+
+
+def test_root_cause_logs_do_not_restate_config_changes():
+    log = (SCENARIOS_DIR / "root-cause" / "environment" / "evidence" / "app_logs.txt").read_text()
+    assert "failure_threshold_pct" not in log and "group_scope" not in log

@@ -13,8 +13,9 @@ lint:
 	ruff check tools tests
 
 # usage: make up SCENARIO=ledger-drift
+# Always starts from a clean container, so one run never sees another run's files.
 up:
-	cd scenarios/$(SCENARIO)/environment && docker compose up -d --build
+	cd scenarios/$(SCENARIO)/environment && docker compose down -v && docker compose up -d --build --wait
 
 down:
 	cd scenarios/$(SCENARIO)/environment && docker compose down -v

@@ -8,6 +8,17 @@ services:
     network_mode: none
     security_opt:
       - no-new-privileges:true
+    cap_drop:
+      - ALL
+    pids_limit: 512
+    mem_limit: 2g
+    # Healthy only after setup finishes (a marker file is written as the last setup step), so `up --wait`
+    # returns when the agent can actually start.
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /workspace/.ready"]
+      interval: 2s
+      timeout: 3s
+      retries: 60
     volumes:
       - ./evidence:/workspace/evidence:ro
     command: >
@@ -15,5 +26,6 @@ services:
       mkdir -p /workspace/scratch &&
       uv venv /workspace/scratch/.venv --quiet &&
       git clone /workspace/evidence/relay-config.bundle /workspace/relay-config --quiet &&
+      touch /workspace/.ready &&
       sleep infinity
       "

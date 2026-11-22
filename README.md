@@ -37,7 +37,7 @@ Each scenario gives the agent a business question, a sandboxed Docker container,
 
 An agent usually looks good when it gets one clean source and a clear question, because there is nothing to compare. Real tasks are harder. A ledger and a payment processor report different totals. A memo quotes a test run that was never a fair comparison. The most obvious cause of an outage is not the real cause.
 
-Each scenario here has several such problems, and each problem has a different cause. The agent also gets some tools it does not need, so the benchmark measures tool choice as well as reasoning.
+Each scenario here has several such problems, and each problem has a different cause. The agent also gets some tools it does not need. The runner records every tool call, so you can check whether the agent chose sensibly. Tool use is recorded, not scored automatically.
 
 ## Scenarios
 
@@ -64,7 +64,7 @@ Requires Python 3.11 or newer and Docker.
 ```bash
 pip install -e ".[dev]"
 
-make up SCENARIO=ledger-drift          # build the image and start the sandbox
+make up SCENARIO=ledger-drift          # build the image and start a clean sandbox; returns when it is ready
 
 # List the tools one MCP server offers inside the sandbox
 python tools/mcp_probe.py list-tools \
@@ -82,14 +82,14 @@ make down SCENARIO=ledger-drift
 
 ### Run a local model
 
-[`tools/run_agent.py`](tools/run_agent.py) runs any [Ollama](https://ollama.com) model on a scenario. It connects to the scenario's MCP tools inside the sandbox, repeats tool calls until the model gives a final answer, and saves that answer to a file.
+[`tools/run_agent.py`](tools/run_agent.py) runs any [Ollama](https://ollama.com) model on a scenario. It connects to the scenario's MCP tools inside the sandbox, repeats tool calls until the model gives a final answer, and saves that answer to a file. It also saves every tool call (name, arguments, output size, whether the output was cut) to `<out>.trajectory.jsonl`.
 
 ```bash
 make up SCENARIO=ledger-drift
 python tools/run_agent.py --scenario ledger-drift --model llama3.2 --out answer.md
 ```
 
-You can also use any other MCP-capable agent. Start each server listed in a scenario's `mcp-servers.json` with `docker exec -i msmb-<scenario> <command> <args>` as its stdio transport, and give the agent `brief.md` as the task.
+Tool results longer than 12,000 characters are cut, and the cut is marked in the text the model sees. Change this with `--max-tool-output`, and the context size with `--num-ctx` (default 32768). You can also use any other MCP-capable agent. Start each server listed in a scenario's `mcp-servers.json` with `docker exec -i msmb-<scenario> <command> <args>` as its stdio transport, and give the agent `brief.md` as the task.
 
 ### Grade an answer
 
@@ -134,13 +134,13 @@ The correct total is $24,460.80 across 22 payouts.
 - Find the later overcorrection to a 90% threshold (CB-772).
 - Note that region-level grouping breaks the delivery SLA.
 
-The configuration history is a real git repository. It is stored as a bundle file and cloned into the container when it starts.
+The configuration history is a real git repository. It is stored as a bundle file and cloned into the container when it starts. The logs name each config change only by its commit id, so the agent must run `git show` to see what changed.
 
 </details>
 
 ## Implementation details
 
-- **Isolation.** Containers run with `network_mode: none`. The reference answers are in this public repository, so an agent with network access could download them. The MCP servers are installed into the image at build time at pinned versions and started with `docker exec -i`. The `/workspace/...` paths in `mcp-servers.json` are paths inside the container.
+- **Isolation.** Containers run with `network_mode: none`, all Linux capabilities dropped, `no-new-privileges`, and limits of 512 processes and 2 GB of memory. `make up` removes any old container first, so one run never sees another run's files. A healthcheck makes `up --wait` return only after setup (virtual environment, config repository clone) has finished. The reference answers are in this public repository, so an agent with network access could download them. The MCP servers are installed into the image at build time at pinned versions and started with `docker exec -i`. The `/workspace/...` paths in `mcp-servers.json` are paths inside the container.
 - **Mounted evidence.** One image is used for all scenarios. Each scenario mounts its own `evidence/` folder read-only, so changing a fixture does not need an image rebuild.
 - **Generators.** Each scenario has a `solution/generate_evidence.py` script that produces its evidence deterministically. It accepts `--out DIR`. The script is kept in `solution/`, away from the evidence, so the agent cannot read it. CI regenerates the evidence and fails if it differs from the committed files.
 - **Git fixture.** The `root-cause` repository is stored as `relay-config.bundle`. A git repository placed inside this repository would be saved as an empty submodule pointer.
@@ -174,6 +174,7 @@ CI runs both commands on every push. The Docker test fails if a policy file name
 
 - The scenarios are synthetic and small. They test reasoning over conflicting evidence, not scale. A strong model may get full marks on some claims, so the per-claim scores are more useful than the total.
 - Scoring depends on the judge model. Claims are written as explicit facts to reduce variation. Small local models are poor judges: a 3B model gave partial credit to an answer that found nothing. Use a strong judge, and compare scores only between runs that used the same judge.
+- The runner supports Ollama only. It uses one run per scenario at temperature 0, so there is no variance estimate, and the repository has no results table for any model yet. Tool calls are recorded but not scored.
 - The `code-executor` tool can run any code inside the container. The container is isolated from the network and the host, but the code can still read the evidence it is meant to analyze.
 
 ## License

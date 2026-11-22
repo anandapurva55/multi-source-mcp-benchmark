@@ -51,7 +51,7 @@
 2027-04-12T13:04:40Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
 2027-04-12T13:04:44Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
 2027-04-12T13:05:00Z INFO  notify-relay summary window=1m deliveries=1517 circuit_open=0 customer_timeout=14 p95_latency_ms=232
-2027-04-12T13:05:00Z INFO  config-sync applied commit=CB-771 file=relay-config/circuit_breaker.yaml change="failure_threshold_pct: 50 -> 15, group_scope: endpoint -> region"
+2027-04-12T13:05:00Z INFO  config-sync applied commit=e8a28ff file=relay-config/circuit_breaker.yaml
 2027-04-12T13:05:27Z ERROR notify-relay endpoint=ep-aps-011.meridianretail.example msg="customer endpoint timeout after 8000ms"
 2027-04-12T13:06:00Z INFO  notify-relay summary window=1m deliveries=1504 circuit_open=5 customer_timeout=29 p95_latency_ms=314
 2027-04-12T13:07:00Z INFO  notify-relay summary window=1m deliveries=1520 circuit_open=3 customer_timeout=24 p95_latency_ms=278
@@ -188,7 +188,7 @@
 2027-04-12T13:31:35Z ERROR notify-relay endpoint=ep-aps-009.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
 2027-04-12T13:31:42Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
 2027-04-12T13:32:00Z INFO  notify-relay summary window=1m deliveries=1522 circuit_open=180 customer_timeout=27 p95_latency_ms=916
-2027-04-12T13:32:00Z INFO  config-sync applied commit=a71fe22 file=relay-config/workers.yaml change="replicas: 6 -> 10"
+2027-04-12T13:32:00Z INFO  config-sync applied commit=68488d4 file=relay-config/workers.yaml
 2027-04-12T13:32:30Z INFO  notify-relay scaled workers=10
 2027-04-12T13:32:38Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
 2027-04-12T13:32:49Z ERROR notify-relay endpoint=ep-aps-007.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
@@ -251,7 +251,7 @@
 2027-04-12T13:54:00Z INFO  notify-relay summary window=1m deliveries=1525 circuit_open=139 customer_timeout=27 p95_latency_ms=750
 2027-04-12T13:54:13Z ERROR notify-relay endpoint=ep-aps-005.meridianretail.example msg="delivery blocked: circuit open for group=ap-south"
 2027-04-12T13:55:00Z INFO  notify-relay summary window=1m deliveries=1481 circuit_open=17 customer_timeout=286 p95_latency_ms=1373
-2027-04-12T13:55:00Z INFO  config-sync applied commit=CB-772 file=relay-config/circuit_breaker.yaml change="group_scope: region -> endpoint, failure_threshold_pct: 15 -> 90"
+2027-04-12T13:55:00Z INFO  config-sync applied commit=f3f8629 file=relay-config/circuit_breaker.yaml
 2027-04-12T13:55:10Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
 2027-04-12T13:55:35Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
 2027-04-12T13:55:38Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
@@ -265,7 +265,7 @@
 2027-04-12T13:56:23Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"
 2027-04-12T13:56:25Z ERROR notify-relay endpoint=ep-aps-002.meridianretail.example msg="customer endpoint timeout after 8000ms"
 2027-04-12T13:57:00Z INFO  notify-relay summary window=1m deliveries=1509 circuit_open=3 customer_timeout=49 p95_latency_ms=369
-2027-04-12T13:57:00Z INFO  config-sync applied commit=CB-773 file=relay-config/circuit_breaker.yaml change="failure_threshold_pct: 90 -> 50"
+2027-04-12T13:57:00Z INFO  config-sync applied commit=e66b3db file=relay-config/circuit_breaker.yaml
 2027-04-12T13:58:00Z INFO  notify-relay summary window=1m deliveries=1525 circuit_open=22 customer_timeout=43 p95_latency_ms=376
 2027-04-12T13:59:00Z INFO  notify-relay summary window=1m deliveries=1486 circuit_open=11 customer_timeout=7 p95_latency_ms=205
 2027-04-12T13:59:36Z ERROR notify-relay endpoint=ep-aps-001.meridianretail.example msg="customer endpoint timeout after 8000ms"

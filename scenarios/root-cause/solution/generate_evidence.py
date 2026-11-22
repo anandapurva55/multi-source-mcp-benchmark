@@ -6,6 +6,7 @@ overwriting what's already there, and prints the figures the reference
 answer and evaluation claims are built from.
 """
 import argparse
+import os
 import random
 import shutil
 import subprocess
@@ -47,7 +48,7 @@ def phase(t: datetime) -> tuple[float, float]:
     return 0.0, 0.004        # resolved / baseline
 
 
-def generate_logs() -> list[tuple[datetime, str]]:
+def generate_logs(shas: dict[str, str]) -> list[tuple[datetime, str]]:
     lines: list[tuple[datetime, str]] = []
 
     t = START
@@ -73,13 +74,13 @@ def generate_logs() -> list[tuple[datetime, str]]:
 
     markers = [
         ("2027-04-12T12:45:00+00:00", 'INFO  notify-relay deploy completed version=v3.9.0 rollout=canary->full healthy=true'),
-        ("2027-04-12T13:05:00+00:00", 'INFO  config-sync applied commit=CB-771 file=relay-config/circuit_breaker.yaml change="failure_threshold_pct: 50 -> 15, group_scope: endpoint -> region"'),
+        ("2027-04-12T13:05:00+00:00", f'INFO  config-sync applied commit={shas["CB-771"]} file=relay-config/circuit_breaker.yaml'),
         ("2027-04-12T13:20:00+00:00", 'INFO  notify-relay rolling restart initiated reason="on-call mitigation" workers=6'),
         ("2027-04-12T13:20:40+00:00", 'INFO  notify-relay rolling restart completed workers=6'),
-        ("2027-04-12T13:32:00+00:00", 'INFO  config-sync applied commit=a71fe22 file=relay-config/workers.yaml change="replicas: 6 -> 10"'),
+        ("2027-04-12T13:32:00+00:00", f'INFO  config-sync applied commit={shas["workers"]} file=relay-config/workers.yaml'),
         ("2027-04-12T13:32:30+00:00", 'INFO  notify-relay scaled workers=10'),
-        ("2027-04-12T13:55:00+00:00", 'INFO  config-sync applied commit=CB-772 file=relay-config/circuit_breaker.yaml change="group_scope: region -> endpoint, failure_threshold_pct: 15 -> 90"'),
-        ("2027-04-12T13:57:00+00:00", 'INFO  config-sync applied commit=CB-773 file=relay-config/circuit_breaker.yaml change="failure_threshold_pct: 90 -> 50"'),
+        ("2027-04-12T13:55:00+00:00", f'INFO  config-sync applied commit={shas["CB-772"]} file=relay-config/circuit_breaker.yaml'),
+        ("2027-04-12T13:57:00+00:00", f'INFO  config-sync applied commit={shas["CB-773"]} file=relay-config/circuit_breaker.yaml'),
     ]
     lines += [(ts(t), text) for t, text in markers]
 
@@ -125,69 +126,74 @@ def write_logs(lines: list[tuple[datetime, str]], evidence_dir: Path) -> None:
     print(f"raw ERROR sample ratio circuit_open:customer_timeout = {co_count}:{ct_count} ({co_count / ct_count:.1f}:1)")
 
 
-def build_config_bundle(evidence_dir: Path) -> None:
-    """Rebuild relay-config's commit history and export it as a portable bundle.
+GIT_ENV_OVERRIDES = {
+    # Ignore the developer's git config (signing, templates, hooks) so commit ids are stable.
+    "GIT_CONFIG_GLOBAL": os.devnull,
+    "GIT_CONFIG_NOSYSTEM": "1",
+}
+
+
+def _git(repo: Path, *args: str, extra_env: dict[str, str] | None = None) -> str:
+    env = {**os.environ, **GIT_ENV_OVERRIDES, **(extra_env or {})}
+    result = subprocess.run(["git", "-c", "commit.gpgsign=false", *args], cwd=repo, env=env,
+                            check=True, capture_output=True, text=True)
+    return result.stdout.strip()
+
+
+def build_config_bundle(evidence_dir: Path) -> dict[str, str]:
+    """Rebuild relay-config's commit history, export it as a portable bundle, return short SHAs.
 
     A git repository nested inside this repository would be recorded as a
     submodule gitlink rather than real files. Building it in a temp directory
     and exporting a bundle keeps the fixture a normal, clonable file.
     """
-    def commit(repo: Path, date: str, name: str, email: str, message: str) -> None:
-        env = {
+    shas: dict[str, str] = {}
+
+    def commit(repo: Path, key: str, date: str, name: str, email: str, message: str) -> None:
+        _git(repo, "commit", "-q", "-m", message, extra_env={
             "GIT_AUTHOR_DATE": date, "GIT_COMMITTER_DATE": date,
             "GIT_AUTHOR_NAME": name, "GIT_AUTHOR_EMAIL": email,
             "GIT_COMMITTER_NAME": name, "GIT_COMMITTER_EMAIL": email,
-        }
-        subprocess.run(["git", "commit", "-q", "-m", message], cwd=repo, env={**_env_base(), **env}, check=True)
+        })
+        shas[key] = _git(repo, "rev-parse", "--short=7", "HEAD")
 
-    def _env_base() -> dict[str, str]:
-        import os
-        return dict(os.environ)
+    def write(repo: Path, fname: str, text: str) -> None:
+        (repo / fname).write_text(text)
+        _git(repo, "add", fname)
 
+    breaker = "service: notify-relay\nfailure_threshold_pct: {pct}\ngroup_scope: {scope}\nwindow_sec: 60\n"
     with tempfile.TemporaryDirectory() as tmp:
         repo = Path(tmp) / "relay-config"
         repo.mkdir()
-        subprocess.run(["git", "init", "-q", "-b", "main"], cwd=repo, check=True)
+        _git(repo, "init", "-q", "-b", "main")
 
-        (repo / "circuit_breaker.yaml").write_text(
-            "service: notify-relay\nfailure_threshold_pct: 50\ngroup_scope: endpoint\nwindow_sec: 60\n"
-        )
-        (repo / "workers.yaml").write_text("service: notify-relay\nreplicas: 6\n")
-        subprocess.run(["git", "add", "circuit_breaker.yaml", "workers.yaml"], cwd=repo, check=True)
-        commit(repo, "2027-01-15T09:00:00+00:00", "Platform Reliability",
+        write(repo, "circuit_breaker.yaml", breaker.format(pct=50, scope="endpoint"))
+        write(repo, "workers.yaml", "service: notify-relay\nreplicas: 6\n")
+        commit(repo, "initial", "2027-01-15T09:00:00+00:00", "Platform Reliability",
                "platform-reliability@fernbridge.example",
                "Initial notify-relay circuit breaker and worker config")
 
-        (repo / "circuit_breaker.yaml").write_text(
-            "service: notify-relay\nfailure_threshold_pct: 15\ngroup_scope: region\nwindow_sec: 60\n"
-        )
-        subprocess.run(["git", "add", "circuit_breaker.yaml"], cwd=repo, check=True)
-        commit(repo, "2027-04-12T13:05:00+00:00", "Priya Deshmukh",
+        write(repo, "circuit_breaker.yaml", breaker.format(pct=15, scope="region"))
+        commit(repo, "CB-771", "2027-04-12T13:05:00+00:00", "Priya Deshmukh",
                "priya.deshmukh@fernbridge.example",
                "CB-771: tighten breaker sensitivity ahead of Meridian Retail onboarding wave")
 
-        (repo / "workers.yaml").write_text("service: notify-relay\nreplicas: 10\n")
-        subprocess.run(["git", "add", "workers.yaml"], cwd=repo, check=True)
-        commit(repo, "2027-04-12T13:32:00+00:00", "Jordan Ellery",
+        write(repo, "workers.yaml", "service: notify-relay\nreplicas: 10\n")
+        commit(repo, "workers", "2027-04-12T13:32:00+00:00", "Jordan Ellery",
                "jordan.ellery@fernbridge.example", "Scale notify-relay workers for onboarding traffic")
 
-        (repo / "circuit_breaker.yaml").write_text(
-            "service: notify-relay\nfailure_threshold_pct: 90\ngroup_scope: endpoint\nwindow_sec: 60\n"
-        )
-        subprocess.run(["git", "add", "circuit_breaker.yaml"], cwd=repo, check=True)
-        commit(repo, "2027-04-12T13:55:00+00:00", "Jordan Ellery",
+        write(repo, "circuit_breaker.yaml", breaker.format(pct=90, scope="endpoint"))
+        commit(repo, "CB-772", "2027-04-12T13:55:00+00:00", "Jordan Ellery",
                "jordan.ellery@fernbridge.example", "CB-772: revert breaker grouping to per-endpoint")
 
-        (repo / "circuit_breaker.yaml").write_text(
-            "service: notify-relay\nfailure_threshold_pct: 50\ngroup_scope: endpoint\nwindow_sec: 60\n"
-        )
-        subprocess.run(["git", "add", "circuit_breaker.yaml"], cwd=repo, check=True)
-        commit(repo, "2027-04-12T13:57:00+00:00", "Jordan Ellery",
+        write(repo, "circuit_breaker.yaml", breaker.format(pct=50, scope="endpoint"))
+        commit(repo, "CB-773", "2027-04-12T13:57:00+00:00", "Jordan Ellery",
                "jordan.ellery@fernbridge.example", "CB-773: restore standard breaker threshold")
 
         bundle_path = evidence_dir / "relay-config.bundle"
-        subprocess.run(["git", "bundle", "create", str(bundle_path), "--all"], cwd=repo, check=True)
+        _git(repo, "bundle", "create", str(bundle_path), "--all")
         print(f"wrote 5-commit history to {bundle_path}")
+    return shas
 
 
 if __name__ == "__main__":
@@ -198,5 +204,5 @@ if __name__ == "__main__":
                         help="directory to write evidence into (default: the scenario's environment/evidence)")
     out = parser.parse_args().out
     out.mkdir(parents=True, exist_ok=True)
-    write_logs(generate_logs(), out)
-    build_config_bundle(out)
+    shas = build_config_bundle(out)
+    write_logs(generate_logs(shas), out)
