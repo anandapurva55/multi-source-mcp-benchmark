@@ -48,3 +48,24 @@ claims:
       Brightwell disbursement, excluding and investigating the unattributed PAY-9999 outflow, moving
       PAY-8841 into next week's batch, and correcting the Thistle Provisions underpayment.
     points: 3
+
+# Wrong conclusions the evidence disproves. An answer that endorses one loses points.
+penalties:
+  - id: uses_raw_totals
+    description: >
+      Presents the raw settlement export total ($25,845.00, which includes the duplicate and
+      the stray row) or the uncorrected ledger total ($24,441.60) as the correct net payout
+      for the batch.
+    points: 3
+
+  - id: includes_stray_row
+    description: >
+      Includes PAY-9999 ($275.00) as a legitimate seller payout in the net payout total, or
+      asserts it needs no follow-up.
+    points: 3
+
+  - id: invents_amount_discrepancy
+    description: >
+      Claims that PAY-8841's settled amount differs from its ledger amount of $2,366.00, or
+      treats the one-day delay as an amount error.
+    points: 3

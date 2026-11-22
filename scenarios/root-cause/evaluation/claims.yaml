@@ -51,3 +51,22 @@ claims:
       documented justification for threshold changes below 30%, and pre-scaling workers
       ahead of a known onboarding wave rather than reacting mid-incident.
     points: 3
+
+# Wrong conclusions the evidence disproves. An answer that endorses one loses points.
+penalties:
+  - id: blames_customer_endpoints
+    description: >
+      Concludes that the affected customers' own endpoints being down or unhealthy was the
+      cause of the incident.
+    points: 3
+
+  - id: blames_deploy
+    description: >
+      Concludes that the 12:45 UTC v3.9.0 deploy was the cause or a main contributor.
+    points: 3
+
+  - id: restart_or_scale_fixed_it
+    description: >
+      Claims that the worker restart or the scale-up from 6 to 10 workers resolved the
+      underlying problem.
+    points: 3

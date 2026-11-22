@@ -4,12 +4,12 @@ Starts nothing itself: bring the sandbox up first (`make up SCENARIO=<name>`). T
 sees only the tools named in the scenario's tool_policy (required plus distractors), each
 server launched inside the container with `docker exec`, and works from brief.md until it
 stops calling tools or hits --max-steps. The final message is written to --out, and every
-tool call (name, arguments, output size, whether the output was truncated) is written to
+tool call (name, arguments, the exact output text the model saw, and whether it was truncated) is written to
 --trajectory as JSON lines, so you can inspect which tools the agent chose.
 
 Example:
     make up SCENARIO=ledger-drift
-    python tools/run_agent.py --scenario ledger-drift --model llama3.2 --out answer.md
+    python tools/run_agent.py --scenario ledger-drift --model qwen2.5:7b --out answer.md
     python tools/grade.py --claims scenarios/ledger-drift/evaluation/claims.yaml --answer answer.md --dry-run
 
 Environment:
@@ -32,8 +32,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 MAX_CALLS_PER_TURN = 8  # small models sometimes emit hundreds of repeated calls in one turn
 SYSTEM_PROMPT = (
     "You are an investigator. Use the provided tools to read the evidence and compute figures "
-    "yourself; do not guess. Evidence lives under /workspace/evidence. When you are done, reply "
-    "with your final written answer and no tool call."
+    "yourself; do not guess. Evidence lives under /workspace/evidence. Some files are not plain "
+    "text (for example SQLite databases), so use the code execution tool to read them. Do not "
+    "reply with a plan or a description of what you would do: keep using tools until you have "
+    "the actual figures, then reply with your final written answer and no tool call."
 )
 
 
@@ -100,7 +102,10 @@ async def run(scenario: str, model: str, max_steps: int, host: str, num_ctx: int
                 if len(calls) > MAX_CALLS_PER_TURN:
                     print(f"[step {step}] model sent {len(calls)} tool calls; running the first {MAX_CALLS_PER_TURN}", file=sys.stderr)
                     trajectory.append({"step": step, "note": f"{len(calls)} calls requested, {MAX_CALLS_PER_TURN} run"})
+                    dropped = len(calls) - MAX_CALLS_PER_TURN
                     calls = calls[:MAX_CALLS_PER_TURN]
+                else:
+                    dropped = 0
                 for call in calls:
                     fn = call["function"]
                     print(f"[step {step}] {fn['name']}({json.dumps(fn['arguments'])[:120]})", file=sys.stderr)
@@ -115,8 +120,13 @@ async def run(scenario: str, model: str, max_steps: int, host: str, num_ctx: int
                             output = f"error: {exc}"
                     shown, truncated = clip(output, max_tool_output)
                     trajectory.append({"step": step, "tool": fn["name"], "arguments": fn["arguments"],
-                                       "output_chars": len(output), "truncated": truncated})
+                                       "output_chars": len(output), "truncated": truncated,
+                                       "output_shown": shown})
                     messages.append({"role": "tool", "tool_name": fn["name"], "content": shown})
+                if dropped:
+                    messages.append({"role": "user", "content": (
+                        f"Notice: you sent {dropped + MAX_CALLS_PER_TURN} tool calls in one turn. Only the first "
+                        f"{MAX_CALLS_PER_TURN} were run; the other {dropped} were not. Send fewer calls per turn.")})
         print(f"warning: no final answer after {max_steps} steps; returning last message", file=sys.stderr)
         return next((m.get("content", "") for m in reversed(messages) if m["role"] == "assistant"
                      and m.get("content")), "")
@@ -125,7 +135,7 @@ async def run(scenario: str, model: str, max_steps: int, host: str, num_ctx: int
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--scenario", required=True)
-    parser.add_argument("--model", default="llama3.2")
+    parser.add_argument("--model", default="qwen2.5:7b")
     parser.add_argument("--max-steps", type=int, default=20)
     parser.add_argument("--out", required=True, help="where to write the final answer")
     parser.add_argument("--trajectory", help="where to write tool calls as JSON lines (default: <out>.trajectory.jsonl)")
