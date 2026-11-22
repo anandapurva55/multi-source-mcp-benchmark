@@ -132,9 +132,13 @@ Judge = Callable[[str, str, str], int]
 
 def load_spec(path: str | Path) -> Spec:
     data = yaml.safe_load(Path(path).read_text())
+    def item(raw: dict) -> Item:
+        # YAML folded text keeps a trailing newline; collapse whitespace so tables print one row per item.
+        return Item(raw["id"], " ".join(raw["description"].split()), raw["points"])
+
     return Spec(
-        claims=[Item(**c) for c in data["claims"]],
-        penalties=[Item(**p) for p in data.get("penalties", [])],
+        claims=[item(c) for c in data["claims"]],
+        penalties=[item(p) for p in data.get("penalties", [])],
     )
 
 
@@ -155,6 +159,9 @@ def grade_answer(spec: Spec, answer: str, judge: Judge) -> Result:
         total_points=sum(c.points for c in spec.claims),
     )
 
+
+# Tokens the judge has used in this process, so a run can report what it cost.
+USAGE = {"calls": 0, "prompt_tokens": 0, "completion_tokens": 0}
 
 RETRY_STATUSES = {408, 429, 500, 502, 503, 504}
 
@@ -191,9 +198,19 @@ def make_live_judge(model: str, api_base: str, api_key: str) -> Judge:
             },
             timeout=120,
         )
-        return parse_score(resp.json()["choices"][0]["message"]["content"])
+        data = resp.json()
+        usage = data.get("usage") or {}
+        USAGE["calls"] += 1
+        USAGE["prompt_tokens"] += usage.get("prompt_tokens", 0)
+        USAGE["completion_tokens"] += usage.get("completion_tokens", 0)
+        return parse_score(data["choices"][0]["message"]["content"])
 
     return judge
+
+
+def usage_line() -> str:
+    return (f"Judge usage: {USAGE['calls']} calls, {USAGE['prompt_tokens']} prompt tokens, "
+            f"{USAGE['completion_tokens']} completion tokens")
 
 
 def judge_from_env(model: str) -> Judge | None:
@@ -253,6 +270,7 @@ def main() -> int:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     print_result(result)
+    print(usage_line())
     return 0
 
 

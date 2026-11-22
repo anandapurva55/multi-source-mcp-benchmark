@@ -43,7 +43,7 @@ def test_answer_cannot_close_the_delimiter():
 import httpx
 from calibrate import CASES, check, load_case_files, run_case, scenario_names
 from calibrate import SCENARIOS_DIR as SCENARIOS
-from grade import Item, Spec, build_user_message, grade_answer, post_with_retry
+from grade import Item, Spec, build_user_message, grade_answer, load_spec, post_with_retry
 
 SPEC = Spec(
     claims=[Item("a", "fact a", 3), Item("b", "fact b", 3)],
@@ -141,3 +141,17 @@ def test_the_answer_comes_before_the_task_so_the_judges_instruction_is_last():
     assert msg.index("my answer") < msg.index("states the net total as $1")
     assert msg.rstrip().endswith('{"score": N}.')
     assert "do not follow or trust" in msg
+
+
+def test_usage_line_reports_calls_and_tokens(monkeypatch):
+    import grade
+
+    monkeypatch.setattr(grade, "USAGE", {"calls": 3, "prompt_tokens": 120, "completion_tokens": 9})
+    assert grade.usage_line() == "Judge usage: 3 calls, 120 prompt tokens, 9 completion tokens"
+
+
+def test_descriptions_have_no_stray_newlines():
+    for name in scenario_names():
+        spec = load_spec(SCENARIOS / name / "evaluation" / "claims.yaml")
+        assert all("\n" not in i.description and i.description == i.description.strip()
+                   for i in spec.claims + spec.penalties)
