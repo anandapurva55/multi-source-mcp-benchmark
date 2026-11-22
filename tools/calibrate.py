@@ -18,7 +18,7 @@ import os
 import sys
 from pathlib import Path
 
-from grade import JudgeReplyError, Spec, grade_answer, judge_from_env, load_spec
+from grade import JudgeReplyError, Spec, grade_answer, judge_from_env, load_spec, usage_line
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCENARIOS_DIR = REPO_ROOT / "scenarios"
@@ -88,7 +88,8 @@ def main() -> int:
             failed |= not ok
             shown = f"{runs[0]:.1f}" if len(runs) == 1 else f"{min(runs):.1f}-{max(runs):.1f}"
             print(f"{name:<14}{case:<12}{shown:<14}{f'{low:.0f}-{high:.0f}%':<12}{'ok' if ok else 'FAIL'}", flush=True)
-    print("\nJudge is fit for use." if not failed else "\nJudge FAILED calibration: do not trust its scores.")
+    print(f"\n{usage_line()}")
+    print("Judge is fit for use." if not failed else "\nJudge FAILED calibration: do not trust its scores.")
     return 1 if failed else 0
 
 
