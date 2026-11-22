@@ -24,5 +24,10 @@ ENV UV_TOOL_DIR=/opt/uv-tools UV_TOOL_BIN_DIR=/usr/local/bin
 RUN uv tool install --with "mcp<2" mcp-server-git==2026.7.10 \
     && uv tool install --with "mcp<2" mcp-server-calculator==0.2.0
 
+# The agent runs as an unprivileged user. Writable areas are tmpfs mounts set in compose.
+RUN useradd --uid 10001 --no-create-home --shell /usr/sbin/nologin agent \
+    && mkdir -p /workspace
+USER agent
+ENV HOME=/home/agent UV_CACHE_DIR=/tmp/uv-cache
 WORKDIR /workspace
 CMD ["sleep", "infinity"]

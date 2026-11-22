@@ -75,3 +75,18 @@ def test_grade_dry_run_succeeds_against_the_reference_answer(scenario_dir: Path)
         check=False,
     )
     assert result.returncode == 0, result.stderr
+
+
+def test_every_scenario_defines_penalties(scenario_dir: Path):
+    data = yaml.safe_load((scenario_dir / "evaluation" / "claims.yaml").read_text())
+    penalties = data.get("penalties", [])
+    assert penalties, "each scenario must name at least one wrong conclusion to penalise"
+    ids = [p["id"] for p in penalties] + [c["id"] for c in data["claims"]]
+    assert len(ids) == len(set(ids)), "claim and penalty ids must be unique"
+    for p in penalties:
+        assert p["description"].strip() and p["points"] == 3
+
+
+def test_calibration_files_are_present(scenario_dir: Path):
+    for name in ("trap.md", "non_answer.md"):
+        assert (scenario_dir / "evaluation" / "calibration" / name).read_text().strip()

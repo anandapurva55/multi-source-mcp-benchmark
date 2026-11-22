@@ -55,3 +55,16 @@ claims:
       single 30-minute run; or no run isolates the hardware or cache-start effect from the
       strategy change.
     points: 3
+
+# Wrong conclusions the evidence disproves. An answer that endorses one loses points.
+penalties:
+  - id: endorses_memo_figures
+    description: >
+      Treats the memo's 92% hit rate or 51 ms latency as a valid result of adaptive-prefetch
+      versus the baseline, or uses run_3 or run_4 as its headline comparison to run_1.
+    points: 3
+
+  - id: approves_rollout_on_memo
+    description: >
+      Concludes that the memo's evidence supports a fleet-wide rollout as written.
+    points: 3
