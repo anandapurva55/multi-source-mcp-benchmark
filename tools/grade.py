@@ -17,6 +17,7 @@ import argparse
 import os
 import re
 import sys
+import time
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
@@ -135,11 +136,29 @@ def grade_answer(spec: Spec, answer: str, judge: Judge) -> Result:
     )
 
 
+RETRY_STATUSES = {408, 429, 500, 502, 503, 504}
+
+
+def post_with_retry(url: str, retries: int = 3, backoff: float = 1.0, **kwargs) -> httpx.Response:
+    """POST, retrying timeouts, connection errors, and rate-limit or server errors."""
+    for attempt in range(retries + 1):
+        try:
+            resp = httpx.post(url, **kwargs)
+            if resp.status_code not in RETRY_STATUSES or attempt == retries:
+                resp.raise_for_status()
+                return resp
+        except (httpx.TimeoutException, httpx.TransportError):
+            if attempt == retries:
+                raise
+        time.sleep(backoff * 2**attempt)
+    raise AssertionError("unreachable")
+
+
 def make_live_judge(model: str, api_base: str, api_key: str) -> Judge:
     def judge(kind: str, description: str, answer: str) -> int:
         system = CLAIM_SYSTEM_PROMPT if kind == "claim" else PENALTY_SYSTEM_PROMPT
         label = "Claim" if kind == "claim" else "Incorrect conclusion"
-        resp = httpx.post(
+        resp = post_with_retry(
             f"{api_base}/chat/completions",
             headers={"Authorization": f"Bearer {api_key}"},
             json={
@@ -152,7 +171,6 @@ def make_live_judge(model: str, api_base: str, api_key: str) -> Judge:
             },
             timeout=60,
         )
-        resp.raise_for_status()
         return parse_score(resp.json()["choices"][0]["message"]["content"])
 
     return judge
@@ -175,6 +193,9 @@ def print_result(result: Result) -> None:
         for item, score, pts in result.penalty_scores:
             print(f"{item.id:<28}{score:<10}{'-' + str(pts):<10}{item.description}")
     print(f"\nClaims: {result.earned:.2f} / {result.total_points}   Penalties: -{result.penalty_total:.2f}")
+    raw = result.earned - result.penalty_total
+    if raw < 0:
+        print(f"Raw total before the floor at zero: {raw:.2f}")
     print(f"Weighted total: {result.total:.2f} / {result.total_points} ({result.percent:.1f}%)")
 
 
